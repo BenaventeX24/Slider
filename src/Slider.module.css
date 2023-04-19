@@ -1,0 +1,36 @@
+.slider {
+  position: relative;
+  white-space: nowrap; /* prevent line breaks */
+  width: 1200px;
+  overflow: scroll;
+  border: 1px solid black;
+  margin: 20px 0;
+}
+
+.box {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  background-color: aqua;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.sliderButton {
+  position: absolute;
+  width: 60px;
+  height: 100%;
+  background-color: rgb(124, 124, 124);
+}
+
+.slideLeft {
+  left: 0;
+}
+
+.slideRight {
+  right: 0;
+}
