@@ -1,10 +1,13 @@
 .slider {
-  position: relative;
   white-space: nowrap; /* prevent line breaks */
   width: 1200px;
   overflow: scroll;
   border: 1px solid black;
   margin: 20px 0;
+}
+
+.sliderContainer {
+  position: relative;
 }
 
 .box {
@@ -22,6 +25,7 @@ body {
 
 .sliderButton {
   position: absolute;
+  top: 0;
   width: 60px;
   height: 100%;
   background-color: rgb(124, 124, 124);
