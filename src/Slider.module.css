@@ -10,8 +10,11 @@
   position: relative;
 }
 
-.box {
+.sensor {
   display: inline-block;
+}
+
+.box {
   width: 200px;
   height: 200px;
   border: 1px solid black;
