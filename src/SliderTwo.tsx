@@ -5,6 +5,7 @@ import Sensor, { SensorRef } from "./Sensor";
 
 const Slider: React.FC = () => {
   const items = [
+    <Box>0</Box>,
     <Box>1</Box>,
     <Box>2</Box>,
     <Box>3</Box>,
@@ -19,26 +20,60 @@ const Slider: React.FC = () => {
     <Box>12</Box>,
     <Box>13</Box>,
     <Box>14</Box>,
-    <Box>15</Box>,
   ];
 
   //const sliderIdentifier = { "slide-id": "example1" };
 
-  /*const [visibleItems, setVisibleItems] = useState<
-    Array<{
-      itemId: number;
-      isVisible: boolean;
-    }>
-  >([]);*/
+  const slideRight = () => {
+    let visibleItems = 0;
+    let scrollTo = 0;
+
+    itemsRef.current.forEach((item, index) => {
+      if (item.isVisible) visibleItems++;
+      if (
+        item.isVisible &&
+        (itemsRef.current[index + 1]?.isVisible === false ||
+          itemsRef.current[index + 1]?.isVisible === undefined)
+      )
+        scrollTo = index + visibleItems;
+    });
+
+    console.log(visibleItems, scrollTo);
+    if (scrollTo > itemsRef.current.length - 1)
+      scrollTo = itemsRef.current.length - 1;
+
+    itemsRef.current[scrollTo]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "end",
+    });
+  };
+
+  const slideLeft = () => {
+    let visibleItems = 0;
+    let scrollTo = 0;
+
+    itemsRef.current.forEach((item, index) => {
+      if (item.isVisible) visibleItems++;
+      if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false)
+        scrollTo = index - visibleItems;
+    });
+    console.log(visibleItems, scrollTo);
+
+    if (scrollTo < 0) scrollTo = 0;
+
+    itemsRef.current[scrollTo]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "end",
+    });
+  };
 
   const itemsRef = useRef<Array<SensorRef>>([]);
-  const [update, setUpdate] = useState<boolean>(false);
 
-  useEffect(() => {
+  /*useEffect(() => {
     itemsRef.current.forEach((item, index) => {
       console.log(index, item.isVisible);
     });
-  }, [update]);
+  }, [update]);*/
 
   return (
     <div className={styles.sliderContainer}>
@@ -61,11 +96,14 @@ const Slider: React.FC = () => {
       </div>
       <button
         className={`${styles.sliderButton} ${styles.slideLeft}`}
-        onClick={() => setUpdate(!update)}
+        onClick={() => slideLeft()}
       >
         left
       </button>
-      <button className={`${styles.sliderButton} ${styles.slideRight}`}>
+      <button
+        onClick={() => slideRight()}
+        className={`${styles.sliderButton} ${styles.slideRight}`}
+      >
         right
       </button>
     </div>
