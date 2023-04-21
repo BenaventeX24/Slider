@@ -1,12 +1,20 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, forwardRef } from "react";
 import styles from "./Slider.module.css";
+import { mergeRefs } from "react-merge-refs";
 
 type Props = {
   children: (isVisible: boolean, itemId: number) => React.ReactNode;
   itemId: number;
 };
 
-const Sensor: React.FC<Props> = ({ children, itemId }) => {
+export interface SensorRef extends HTMLDivElement {
+  isVisible: boolean;
+}
+
+const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
+  { children, itemId },
+  ref
+) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -35,10 +43,10 @@ const Sensor: React.FC<Props> = ({ children, itemId }) => {
   }, []);
 
   return (
-    <div ref={targetRef} className={styles.sensor}>
+    <div ref={mergeRefs([targetRef, ref])} className={styles.sensor}>
       {children(isVisible, itemId)}
     </div>
   );
 };
 
-export default Sensor;
+export default forwardRef(Sensor);
