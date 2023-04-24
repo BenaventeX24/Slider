@@ -35,7 +35,15 @@ body {
   top: 0;
   width: 60px;
   height: 100%;
-  background-color: rgb(124, 124, 124);
+  background-color: transparent;
+}
+
+.sliderButton:hover {
+  background-color: rgb(124, 124, 124, 0.5);
+}
+
+.sliderButton:disabled {
+  display: none;
 }
 
 .slideLeft {
@@ -44,4 +52,8 @@ body {
 
 .slideRight {
   right: 0;
+}
+
+.testHeight {
+  height: 200vh;
 }

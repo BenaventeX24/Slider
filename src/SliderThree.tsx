@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Slider.module.css";
 import Box from "./Box";
 import Sensor, { SensorRef } from "./Sensor";
-import scrollIntoView from "scroll-into-view";
 
 const Slider: React.FC = () => {
   const itemsRef = useRef<Array<SensorRef>>([]);
@@ -34,67 +33,30 @@ const Slider: React.FC = () => {
   ];
 
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [currentItem, setCurrentItem] = useState<number>(0);
+  const [scrollCount, setScrollCount] = useState<number>(0);
 
   const slideRight = () => {
-    setDisabled(true);
-
-    let visibleItems = 0;
-    let scrollTo = 0;
-
-    itemsRef.current.forEach((item, index) => {
-      if (item.isVisible) visibleItems++;
-      if (
-        item.isVisible &&
-        (itemsRef.current[index + 1]?.isVisible === false ||
-          itemsRef.current[index + 1]?.isVisible === undefined)
-      )
-        scrollTo = index + visibleItems;
-    });
+    let scrollTo = currentItem + scrollCount;
 
     if (scrollTo > itemsRef.current.length - 1)
       scrollTo = itemsRef.current.length - 1;
 
-    console.log(visibleItems, scrollTo);
-
-    scrollIntoView(
-      itemsRef.current[scrollTo],
-      { time: 350, align: { left: 0.5, lockY: true, leftOffset: 410 } },
-      function (_completed) {
-        setDisabled(false);
-
-        // Scrolling done.
-        // type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll
-      }
-    );
+    itemsRef.current[scrollTo]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "end",
+    });
   };
 
   const slideLeft = () => {
-    setDisabled(true);
+    let scrollTo = currentItem - scrollCount;
 
-    let visibleItems = 0;
-    let scrollTo = 0;
+    if (scrollTo > itemsRef.current.length - 1)
+      scrollTo = itemsRef.current.length - 1;
 
-    itemsRef.current.forEach((item, index) => {
-      if (item.isVisible) visibleItems++;
-      if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false)
-        scrollTo = index - visibleItems;
-    });
-
-    if (scrollTo < 0) scrollTo = 0;
-
-    /*itemsRef.current[scrollTo]?.scrollIntoView({
+    itemsRef.current[scrollTo]?.scrollIntoView({
       behavior: "smooth",
       inline: "end",
-    });*/
-
-    console.log(visibleItems, scrollTo);
-
-    scrollIntoView(itemsRef.current[scrollTo], function (completed) {
-      if (completed === "complete") {
-        setDisabled(false);
-      }
-      // Scrolling done.
-      // type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll
     });
   };
 
@@ -113,6 +75,7 @@ const Slider: React.FC = () => {
               {(isVisible: boolean, itemId: number) => {
                 if (itemsRef.current[index])
                   itemsRef.current[index].isVisible = isVisible;
+
                 return <Box>{item}</Box>;
               }}
             </Sensor>
