@@ -27,7 +27,7 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
       {
         root: null,
         rootMargin: "0px",
-        threshold: 1.0,
+        threshold: 1,
       }
     );
 

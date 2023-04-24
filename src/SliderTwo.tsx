@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Slider.module.css";
 import Box from "./Box";
 import Sensor, { SensorRef } from "./Sensor";
@@ -48,17 +48,20 @@ const Slider: React.FC = () => {
         (itemsRef.current[index + 1]?.isVisible === false ||
           itemsRef.current[index + 1]?.isVisible === undefined)
       )
-        scrollTo = index + visibleItems;
+        scrollTo = index + 1;
     });
 
     if (scrollTo > itemsRef.current.length - 1)
       scrollTo = itemsRef.current.length - 1;
 
-    console.log(visibleItems, scrollTo);
+    console.log(scrollTo);
 
     scrollIntoView(
       itemsRef.current[scrollTo],
-      { time: 350, align: { left: 0.5, lockY: true, leftOffset: 410 } },
+      {
+        time: 350,
+        align: { left: 0.001, lockY: true },
+      },
       function (_completed) {
         setDisabled(false);
       }
@@ -73,8 +76,10 @@ const Slider: React.FC = () => {
 
     itemsRef.current.forEach((item, index) => {
       if (item.isVisible) visibleItems++;
-      if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false)
+      if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false) {
         scrollTo = index - visibleItems;
+        console.log(index, scrollTo);
+      }
     });
 
     if (scrollTo < 0) scrollTo = 0;
@@ -84,11 +89,12 @@ const Slider: React.FC = () => {
       inline: "end",
     });*/
 
-    console.log(visibleItems, scrollTo);
-
     scrollIntoView(
       itemsRef.current[scrollTo],
-      { time: 350, align: { left: 0.5, lockY: true, leftOffset: 410 } },
+      {
+        time: 350,
+        align: { left: 0.001, lockY: true },
+      },
       function (_completed) {
         setDisabled(false);
       }
@@ -110,7 +116,7 @@ const Slider: React.FC = () => {
               {(isVisible: boolean, itemId: number) => {
                 if (itemsRef.current[index])
                   itemsRef.current[index].isVisible = isVisible;
-                return <Box>{item}</Box>;
+                return item;
               }}
             </Sensor>
           ))}
