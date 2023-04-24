@@ -61,9 +61,6 @@ const Slider: React.FC = () => {
       { time: 350, align: { left: 0.5, lockY: true, leftOffset: 410 } },
       function (_completed) {
         setDisabled(false);
-
-        // Scrolling done.
-        // type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll
       }
     );
   };
@@ -89,13 +86,13 @@ const Slider: React.FC = () => {
 
     console.log(visibleItems, scrollTo);
 
-    scrollIntoView(itemsRef.current[scrollTo], function (completed) {
-      if (completed === "complete") {
+    scrollIntoView(
+      itemsRef.current[scrollTo],
+      { time: 350, align: { left: 0.5, lockY: true, leftOffset: 410 } },
+      function (_completed) {
         setDisabled(false);
       }
-      // Scrolling done.
-      // type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll
-    });
+    );
   };
 
   return (
