@@ -31,6 +31,27 @@ const Slider: React.FC = () => {
     <Box>20</Box>,
     <Box>21</Box>,
     <Box>22</Box>,
+    <Box>23</Box>,
+    <Box>24</Box>,
+    <Box>25</Box>,
+    <Box>26</Box>,
+    <Box>27</Box>,
+    <Box>28</Box>,
+    <Box>29</Box>,
+    <Box>30</Box>,
+    <Box>31</Box>,
+    <Box>32</Box>,
+    <Box>33</Box>,
+    <Box>34</Box>,
+    <Box>35</Box>,
+    <Box>36</Box>,
+    <Box>37</Box>,
+    <Box>38</Box>,
+    <Box>39</Box>,
+    <Box>40</Box>,
+    <Box>41</Box>,
+    <Box>42</Box>,
+    <Box>43</Box>,
   ];
 
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -38,11 +59,9 @@ const Slider: React.FC = () => {
   const slideRight = () => {
     setDisabled(true);
 
-    let visibleItems = 0;
     let scrollTo = 0;
 
     itemsRef.current.forEach((item, index) => {
-      if (item.isVisible) visibleItems++;
       if (
         item.isVisible &&
         (itemsRef.current[index + 1]?.isVisible === false ||
@@ -53,8 +72,6 @@ const Slider: React.FC = () => {
 
     if (scrollTo > itemsRef.current.length - 1)
       scrollTo = itemsRef.current.length - 1;
-
-    console.log(scrollTo);
 
     scrollIntoView(
       itemsRef.current[scrollTo],
@@ -72,16 +89,17 @@ const Slider: React.FC = () => {
     setDisabled(true);
 
     let visibleItems = 0;
+    let firstVisibleItem = 0;
     let scrollTo = 0;
 
     itemsRef.current.forEach((item, index) => {
       if (item.isVisible) visibleItems++;
       if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false) {
-        scrollTo = index - visibleItems;
-        console.log(index, scrollTo);
+        firstVisibleItem = index;
       }
     });
 
+    scrollTo = firstVisibleItem - visibleItems;
     if (scrollTo < 0) scrollTo = 0;
 
     /*itemsRef.current[scrollTo]?.scrollIntoView({
