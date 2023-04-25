@@ -1,58 +1,22 @@
 import React, { useRef, useState } from "react";
-import styles from "./Slider.module.css";
-import Box from "./Box";
+import stylesModule from "./Slider.module.css";
 import Sensor, { SensorRef } from "./Sensor";
 import scrollIntoView from "scroll-into-view";
 
-const Slider: React.FC = () => {
-  const itemsRef = useRef<Array<SensorRef>>([]);
+type props = {
+  items: JSX.Element[];
+  styles?: React.CSSProperties;
+  buttonLeft?: JSX.Element;
+  buttonRight?: JSX.Element;
+};
 
-  const items = [
-    <Box>0</Box>,
-    <Box>1</Box>,
-    <Box>2</Box>,
-    <Box>3</Box>,
-    <Box>4</Box>,
-    <Box>5</Box>,
-    <Box>6</Box>,
-    <Box>7</Box>,
-    <Box>8</Box>,
-    <Box>9</Box>,
-    <Box>10</Box>,
-    <Box>11</Box>,
-    <Box>12</Box>,
-    <Box>13</Box>,
-    <Box>14</Box>,
-    <Box>15</Box>,
-    <Box>16</Box>,
-    <Box>17</Box>,
-    <Box>18</Box>,
-    <Box>19</Box>,
-    <Box>20</Box>,
-    <Box>21</Box>,
-    <Box>22</Box>,
-    <Box>23</Box>,
-    <Box>24</Box>,
-    <Box>25</Box>,
-    <Box>26</Box>,
-    <Box>27</Box>,
-    <Box>28</Box>,
-    <Box>29</Box>,
-    <Box>30</Box>,
-    <Box>31</Box>,
-    <Box>32</Box>,
-    <Box>33</Box>,
-    <Box>34</Box>,
-    <Box>35</Box>,
-    <Box>36</Box>,
-    <Box>37</Box>,
-    <Box>38</Box>,
-    <Box>39</Box>,
-    <Box>40</Box>,
-    <Box>41</Box>,
-    <Box>42</Box>,
-    <Box>43</Box>,
-  ];
+const Slider: React.FC<props> = ({
+  items,
+  styles,
+  buttonLeft,
+  buttonRight,
+}: props) => {
+  const itemsRef = useRef<Array<SensorRef>>([]);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -102,11 +66,6 @@ const Slider: React.FC = () => {
     scrollTo = firstVisibleItem - visibleItems;
     if (scrollTo < 0) scrollTo = 0;
 
-    /*itemsRef.current[scrollTo]?.scrollIntoView({
-      behavior: "smooth",
-      inline: "end",
-    });*/
-
     scrollIntoView(
       itemsRef.current[scrollTo],
       {
@@ -121,8 +80,16 @@ const Slider: React.FC = () => {
 
   return (
     <>
-      <div className={styles.sliderContainer}>
-        <div className={styles.slider}>
+      <div style={{ position: "relative" }}>
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            width: "1200px",
+            overflow: "scroll",
+            border: "1px solid black",
+            margin: "20px 0",
+          }}
+        >
           {items.map((item, index) => (
             <Sensor
               itemId={index}
@@ -140,7 +107,7 @@ const Slider: React.FC = () => {
           ))}
         </div>
         <button
-          className={`${styles.sliderButton} ${styles.slideLeft}`}
+          className={`${stylesModule.sliderButton} ${stylesModule.slideLeft}`}
           onClick={() => slideLeft()}
           disabled={disabled}
         >
@@ -148,7 +115,7 @@ const Slider: React.FC = () => {
         </button>
         <button
           onClick={() => slideRight()}
-          className={`${styles.sliderButton} ${styles.slideRight}`}
+          className={`${stylesModule.sliderButton} ${stylesModule.slideRight}`}
           disabled={disabled}
         >
           right
