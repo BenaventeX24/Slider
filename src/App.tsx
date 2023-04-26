@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "./Slider";
 import Box from "./Box";
+import { css } from "@emotion/css";
 
 const items = [
   <Box>0</Box>,
@@ -50,7 +51,16 @@ const items = [
 ];
 
 function App() {
-  return <Slider items={items} threshold={1} />;
+  return (
+    <div
+      className={css`
+        display: flex;
+        justify-content: center;
+      `}
+    >
+      <Slider items={items} threshold={1} />
+    </div>
+  );
 }
 
 export default App;

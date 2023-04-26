@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, forwardRef } from "react";
-import styles from "./Slider.module.css";
 import { mergeRefs } from "react-merge-refs";
+import { css } from "@emotion/css";
 
 type Props = {
   children: (isVisible: boolean) => React.ReactNode;
@@ -43,7 +43,12 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
   }, [threshold]);
 
   return (
-    <div ref={mergeRefs([targetRef, ref])} className={styles.sensor}>
+    <div
+      ref={mergeRefs([targetRef, ref])}
+      className={css`
+        display: inline-block;
+      `}
+    >
       {children(isVisible)}
     </div>
   );

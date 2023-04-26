@@ -10,6 +10,7 @@ type props = {
   buttonRight?: JSX.Element;
   threshold: number | number[];
   disableScrollbar?: boolean;
+  width?: number;
 };
 
 const Slider: React.FC<props> = ({
@@ -19,7 +20,9 @@ const Slider: React.FC<props> = ({
   buttonRight,
   threshold,
   disableScrollbar,
+  width,
 }: props) => {
+  const sliderWidth = width ? `${width}px` : `1200px`;
   const itemsRef = useRef<Array<SensorRef>>([]);
 
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -87,15 +90,17 @@ const Slider: React.FC<props> = ({
   return (
     <>
       <div
-        style={{
-          display: "flex",
-          border: "1px solid black",
-        }}
+        className={css`
+          display: flex;
+        `}
       >
         <button
           onClick={() => slideLeft()}
           disabled={disabled}
-          style={{ display: "flex", width: "60px" }}
+          className={css`
+            display: flex;
+            width: 60px;
+          `}
         >
           left
         </button>
@@ -103,8 +108,7 @@ const Slider: React.FC<props> = ({
           className={css`
             white-space: nowrap;
             overflow: scroll;
-            width: 1200px;
-            border: 1px solid black;
+            width: ${sliderWidth};
 
             ${disableScrollbar &&
             `
@@ -137,7 +141,11 @@ const Slider: React.FC<props> = ({
         <button
           onClick={() => slideRight()}
           disabled={disabled}
-          style={{ display: "flex", width: "60px", justifySelf: "flex-end" }}
+          className={css`
+            display: flex;
+            width: 60px;
+            justify-self: flex-end;
+          `}
         >
           right
         </button>
