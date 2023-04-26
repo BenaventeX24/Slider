@@ -31,11 +31,9 @@ body {
 }
 
 .sliderButton {
-  position: absolute;
-  top: 0;
   width: 60px;
-  height: 100%;
-  background-color: transparent;
+  display: flex;
+  background-color: rgb(124, 124, 124, 0.5);
 }
 
 .sliderButton:hover {
@@ -43,7 +41,7 @@ body {
 }
 
 .sliderButton:disabled {
-  display: none;
+  visibility: hidden;
 }
 
 .slideLeft {
@@ -52,6 +50,7 @@ body {
 
 .slideRight {
   right: 0;
+  justify-self: flex-end;
 }
 
 .testHeight {

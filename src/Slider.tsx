@@ -1,13 +1,15 @@
 import React, { useRef, useState } from "react";
-import stylesModule from "./Slider.module.css";
 import Sensor, { SensorRef } from "./Sensor";
 import scrollIntoView from "scroll-into-view";
+import { css } from "@emotion/css";
 
 type props = {
   items: JSX.Element[];
   styles?: React.CSSProperties;
   buttonLeft?: JSX.Element;
   buttonRight?: JSX.Element;
+  threshold: number | number[];
+  disableScrollbar?: boolean;
 };
 
 const Slider: React.FC<props> = ({
@@ -15,6 +17,8 @@ const Slider: React.FC<props> = ({
   styles,
   buttonLeft,
   buttonRight,
+  threshold,
+  disableScrollbar,
 }: props) => {
   const itemsRef = useRef<Array<SensorRef>>([]);
 
@@ -42,6 +46,7 @@ const Slider: React.FC<props> = ({
       {
         time: 350,
         align: { left: 0.001, lockY: true },
+        cancellable: false,
       },
       function (_completed) {
         setDisabled(false);
@@ -71,6 +76,7 @@ const Slider: React.FC<props> = ({
       {
         time: 350,
         align: { left: 0.001, lockY: true },
+        cancellable: false,
       },
       function (_completed) {
         setDisabled(false);
@@ -80,25 +86,46 @@ const Slider: React.FC<props> = ({
 
   return (
     <>
-      <div style={{ position: "relative" }}>
+      <div
+        style={{
+          display: "flex",
+          border: "1px solid black",
+        }}
+      >
+        <button
+          onClick={() => slideLeft()}
+          disabled={disabled}
+          style={{ display: "flex", width: "60px" }}
+        >
+          left
+        </button>
         <div
-          style={{
-            whiteSpace: "nowrap",
-            width: "1200px",
-            overflow: "scroll",
-            border: "1px solid black",
-            margin: "20px 0",
-          }}
+          className={css`
+            white-space: nowrap;
+            overflow: scroll;
+            width: 1200px;
+            border: 1px solid black;
+
+            ${disableScrollbar &&
+            `
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+              
+              &::-webkit-scrollbar {
+                display: none;
+              }
+            `}
+          `}
         >
           {items.map((item, index) => (
             <Sensor
-              itemId={index}
               key={index}
+              threshold={threshold}
               ref={(element: SensorRef) => {
                 itemsRef.current[index] = element;
               }}
             >
-              {(isVisible: boolean, itemId: number) => {
+              {(isVisible: boolean) => {
                 if (itemsRef.current[index])
                   itemsRef.current[index].isVisible = isVisible;
                 return item;
@@ -106,17 +133,11 @@ const Slider: React.FC<props> = ({
             </Sensor>
           ))}
         </div>
-        <button
-          className={`${stylesModule.sliderButton} ${stylesModule.slideLeft}`}
-          onClick={() => slideLeft()}
-          disabled={disabled}
-        >
-          left
-        </button>
+
         <button
           onClick={() => slideRight()}
-          className={`${stylesModule.sliderButton} ${stylesModule.slideRight}`}
           disabled={disabled}
+          style={{ display: "flex", width: "60px", justifySelf: "flex-end" }}
         >
           right
         </button>

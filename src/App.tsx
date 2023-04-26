@@ -1,5 +1,5 @@
 import React from "react";
-import Slider from "./SliderTwo";
+import Slider from "./Slider";
 import Box from "./Box";
 
 const items = [
@@ -50,7 +50,7 @@ const items = [
 ];
 
 function App() {
-  return <Slider items={items} />;
+  return <Slider items={items} threshold={1} />;
 }
 
 export default App;

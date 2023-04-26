@@ -3,8 +3,8 @@ import styles from "./Slider.module.css";
 import { mergeRefs } from "react-merge-refs";
 
 type Props = {
-  children: (isVisible: boolean, itemId: number) => React.ReactNode;
-  itemId: number;
+  children: (isVisible: boolean) => React.ReactNode;
+  threshold: number | number[];
 };
 
 export interface SensorRef extends HTMLDivElement {
@@ -12,7 +12,7 @@ export interface SensorRef extends HTMLDivElement {
 }
 
 const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
-  { children, itemId },
+  { children, threshold },
   ref
 ) => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -27,7 +27,7 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
       {
         root: null,
         rootMargin: "0px",
-        threshold: 1,
+        threshold: threshold,
       }
     );
 
@@ -40,11 +40,11 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
         observer.unobserve(targetNode);
       }
     };
-  }, []);
+  }, [threshold]);
 
   return (
     <div ref={mergeRefs([targetRef, ref])} className={styles.sensor}>
-      {children(isVisible, itemId)}
+      {children(isVisible)}
     </div>
   );
 };
