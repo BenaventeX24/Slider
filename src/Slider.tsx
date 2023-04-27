@@ -7,6 +7,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 type props = {
   items: JSX.Element[];
   threshold: number | number[];
+  time?: number;
   styles?: React.CSSProperties;
   buttonLeft?: JSX.Element;
   buttonRight?: JSX.Element;
@@ -28,6 +29,7 @@ const Slider: React.FC<props> = ({
   buttonLeft,
   buttonRight,
   threshold,
+  time,
   disableScrollbar,
   width,
   sliderContainerStyles,
@@ -65,7 +67,7 @@ const Slider: React.FC<props> = ({
     scrollIntoView(
       itemsRef.current[scrollTo],
       {
-        time: 350,
+        time: time ? time : 350,
         align: { left: 0.001, lockY: true },
         cancellable: false,
       },
