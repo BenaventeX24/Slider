@@ -142,9 +142,15 @@ const Slider: React.FC<props> = ({
 
             cursor: pointer;
 
+            transition: visibility 0.5s, opacity 0.5s;
+
             visibility: ${!disableLeftButton && visibleButtons
               ? "visible"
               : "hidden"};
+            opacity: ${!disableLeftButton && visibleButtons ? "1" : "0"};
+            pointer-events: ${!disableLeftButton && visibleButtons
+              ? "auto"
+              : "none"};
           `}
         >
           <BsChevronLeft />
@@ -202,9 +208,15 @@ const Slider: React.FC<props> = ({
             box-shadow: 0.5px 2px 4px rgba(0, 0, 0, 0.2);
             cursor: pointer;
 
+            transition: visibility 0.5s, opacity 0.5s;
+
             visibility: ${!disableRightButton && visibleButtons
               ? "visible"
               : "hidden"};
+            opacity: ${!disableRightButton && visibleButtons ? "1" : "0"};
+            pointer-events: ${!disableRightButton && visibleButtons
+              ? "auto"
+              : "none"};
           `}
         >
           <BsChevronRight />
