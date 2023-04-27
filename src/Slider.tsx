@@ -35,24 +35,21 @@ const Slider: React.FC<props> = ({
   sliderContainerStyles,
   itemsContainerStyles,
 }: props) => {
-  const innerWidth = width ? `${width}px` : `1200px`;
-
   const itemsRef = useRef<Array<SensorRef>>([]);
 
   const [disableLeftButton, setDisableLeftButton] = useState<boolean>(true);
   const [disableRightButton, setDisableRightButton] = useState<boolean>(false);
   const [visibleButtons, setVisibleButtons] = useState<boolean>(false);
 
-  // const [showButtonsOnHover, setShowButtonsOnHover] = useState<boolean>(false);
-  // const [leftButtonDisplay, setLeftButtonDisplay] = useState<boolean>(false);
-  // const [rightButtonDisplay, setRightButtonDisplay] = useState<boolean>(true);
-
   const slideRight = () => {
-    let scrollTo = 0;
     setDisableLeftButton(true);
     setDisableRightButton(true);
 
+    let scrollTo = 0;
+    let visibleItems = 0;
+
     itemsRef.current.forEach((item, index) => {
+      if (item.isVisible) visibleItems++;
       if (
         item.isVisible &&
         (itemsRef.current[index + 1]?.isVisible === false ||
@@ -61,8 +58,11 @@ const Slider: React.FC<props> = ({
         scrollTo = index + 1;
     });
 
-    if (scrollTo > itemsRef.current.length - 1)
-      scrollTo = itemsRef.current.length - 1;
+    /*if (scrollTo > itemsRef.current.length - 1)
+      scrollTo = itemsRef.current.length - 1;*/
+
+    /*if (scrollTo + visibleItems >= itemsRef.current.length - 1)
+      reachedMaxScroll = true;*/
 
     scrollIntoView(
       itemsRef.current[scrollTo],
@@ -72,15 +72,17 @@ const Slider: React.FC<props> = ({
         cancellable: false,
       },
       function (_completed) {
-        if (itemsRef.current[itemsRef.current.length - 1]?.isVisible)
-          setDisableRightButton(true);
-        else setDisableRightButton(false);
+        if (scrollTo + visibleItems < itemsRef.current.length - 1)
+          setDisableRightButton(false);
         setDisableLeftButton(false);
       }
     );
   };
 
   const slideLeft = () => {
+    setDisableLeftButton(true);
+    setDisableRightButton(true);
+
     let visibleItems = 0;
     let firstVisibleItem = 0;
     let scrollTo = 0;
@@ -98,13 +100,12 @@ const Slider: React.FC<props> = ({
     scrollIntoView(
       itemsRef.current[scrollTo],
       {
-        time: 2000,
+        time: time ? time : 350,
         align: { left: 0.001, lockY: true },
         cancellable: false,
       },
       function (_completed) {
-        if (itemsRef.current[0]?.isVisible) setDisableLeftButton(true);
-        else setDisableLeftButton(false);
+        if (scrollTo !== 0) setDisableLeftButton(false);
         setDisableRightButton(false);
       }
     );
@@ -152,7 +153,7 @@ const Slider: React.FC<props> = ({
           className={`${css`
             white-space: nowrap;
             overflow: scroll;
-            width: ${innerWidth};
+            width: ${width ? `${width}px` : `1200px`};
 
             ${disableScrollbar &&
             `
