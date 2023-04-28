@@ -75,6 +75,36 @@ const Slider: React.FC<props> = ({
     );
   }, [lockSlide, scrollTo, time]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      let lastVisibleItemFromRight = 0;
+      let lastVisibleItemFromLeft = 0;
+
+      itemsRef.current.forEach((item, index) => {
+        if (
+          item.isVisible &&
+          (itemsRef.current[index + 1]?.isVisible === false ||
+            itemsRef.current[index + 1]?.isVisible === undefined)
+        )
+          lastVisibleItemFromLeft = index;
+        if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false)
+          lastVisibleItemFromRight = index;
+      });
+
+      if (lastVisibleItemFromLeft !== 0) {
+        setLockSlide(slideDirections.NONE);
+      }
+      if (lastVisibleItemFromRight >= itemsRef.current.length - 1)
+        setLockSlide(slideDirections.NONE);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const slideRight = () => {
     setLockSlide(slideDirections.NONE);
 
