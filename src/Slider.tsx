@@ -39,11 +39,14 @@ const Slider: React.FC<props> = ({
 
   const [disableLeftButton, setDisableLeftButton] = useState<boolean>(true);
   const [disableRightButton, setDisableRightButton] = useState<boolean>(false);
+  const [limitLeftSlide, setLimitLeftSlide] = useState<boolean>(true);
+  const [limitRightSlide, setLimitRightSlide] = useState<boolean>(false);
   const [visibleButtons, setVisibleButtons] = useState<boolean>(false);
 
   const slideRight = () => {
     setDisableLeftButton(true);
     setDisableRightButton(true);
+    setLimitLeftSlide(false);
 
     let scrollTo = 0;
     let visibleItems = 0;
@@ -58,11 +61,8 @@ const Slider: React.FC<props> = ({
         scrollTo = index + 1;
     });
 
-    /*if (scrollTo > itemsRef.current.length - 1)
-      scrollTo = itemsRef.current.length - 1;*/
-
-    /*if (scrollTo + visibleItems >= itemsRef.current.length - 1)
-      reachedMaxScroll = true;*/
+    if (scrollTo + visibleItems >= itemsRef.current.length - 1)
+      setLimitRightSlide(true);
 
     scrollIntoView(
       itemsRef.current[scrollTo],
@@ -82,6 +82,7 @@ const Slider: React.FC<props> = ({
   const slideLeft = () => {
     setDisableLeftButton(true);
     setDisableRightButton(true);
+    setLimitRightSlide(false);
 
     let visibleItems = 0;
     let firstVisibleItem = 0;
@@ -95,7 +96,11 @@ const Slider: React.FC<props> = ({
     });
 
     scrollTo = firstVisibleItem - visibleItems;
-    if (scrollTo < 0) scrollTo = 0;
+
+    if (scrollTo <= 0) {
+      setLimitLeftSlide(true);
+      scrollTo = 0;
+    }
 
     scrollIntoView(
       itemsRef.current[scrollTo],
@@ -144,11 +149,11 @@ const Slider: React.FC<props> = ({
 
             transition: visibility 0.5s, opacity 0.5s;
 
-            visibility: ${!disableLeftButton && visibleButtons
+            visibility: ${!limitLeftSlide && visibleButtons
               ? "visible"
               : "hidden"};
-            opacity: ${!disableLeftButton && visibleButtons ? "1" : "0"};
-            pointer-events: ${!disableLeftButton && visibleButtons
+            opacity: ${!limitLeftSlide && visibleButtons ? "1" : "0"};
+            pointer-events: ${!limitLeftSlide && visibleButtons
               ? "auto"
               : "none"};
           `}
@@ -210,11 +215,11 @@ const Slider: React.FC<props> = ({
 
             transition: visibility 0.5s, opacity 0.5s;
 
-            visibility: ${!disableRightButton && visibleButtons
+            visibility: ${!limitRightSlide && visibleButtons
               ? "visible"
               : "hidden"};
-            opacity: ${!disableRightButton && visibleButtons ? "1" : "0"};
-            pointer-events: ${!disableRightButton && visibleButtons
+            opacity: ${!limitRightSlide && visibleButtons ? "1" : "0"};
+            pointer-events: ${!limitRightSlide && visibleButtons
               ? "auto"
               : "none"};
           `}
