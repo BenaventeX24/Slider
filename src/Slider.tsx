@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Sensor, { SensorRef } from "./Sensor";
 import scrollIntoView from "scroll-into-view";
 import { CSSInterpolation, css } from "@emotion/css";
@@ -23,6 +23,17 @@ type props = {
   };
 };
 
+enum slideDirections {
+  LEFT = "left",
+  RIGHT = "right",
+  NONE = "",
+}
+
+type scrollTo = {
+  to: number;
+  direction: slideDirections;
+};
+
 const Slider: React.FC<props> = ({
   items,
   styles,
@@ -37,18 +48,37 @@ const Slider: React.FC<props> = ({
 }: props) => {
   const itemsRef = useRef<Array<SensorRef>>([]);
 
-  const [disableLeftButton, setDisableLeftButton] = useState<boolean>(true);
-  const [disableRightButton, setDisableRightButton] = useState<boolean>(false);
-  const [limitLeftSlide, setLimitLeftSlide] = useState<boolean>(true);
-  const [limitRightSlide, setLimitRightSlide] = useState<boolean>(false);
+  const [scrollTo, setScrollTo] = useState<scrollTo>({
+    to: 0,
+    direction: slideDirections.LEFT,
+  });
+  const [disableButtons, setDisableButtons] = useState<boolean>(true);
+  const [lockSlide, setLockSlide] = useState<slideDirections>(
+    slideDirections.LEFT
+  );
+
   const [visibleButtons, setVisibleButtons] = useState<boolean>(false);
 
-  const slideRight = () => {
-    setDisableLeftButton(true);
-    setDisableRightButton(true);
-    setLimitLeftSlide(false);
+  useEffect(() => {
+    setDisableButtons(true);
 
-    let scrollTo = 0;
+    scrollIntoView(
+      itemsRef.current[scrollTo.to],
+      {
+        time: time ? time : 350,
+        align: { left: 0.001, lockY: true },
+        cancellable: false,
+      },
+      function (_completed) {
+        setDisableButtons(false);
+      }
+    );
+  }, [lockSlide, scrollTo, time]);
+
+  const slideRight = () => {
+    setLockSlide(slideDirections.NONE);
+
+    let scrollToRight = 0;
     let visibleItems = 0;
 
     itemsRef.current.forEach((item, index) => {
@@ -58,35 +88,21 @@ const Slider: React.FC<props> = ({
         (itemsRef.current[index + 1]?.isVisible === false ||
           itemsRef.current[index + 1]?.isVisible === undefined)
       )
-        scrollTo = index + 1;
+        scrollToRight = index + 1;
     });
 
-    if (scrollTo + visibleItems >= itemsRef.current.length - 1)
-      setLimitRightSlide(true);
+    if (scrollToRight + visibleItems >= itemsRef.current.length - 1)
+      setLockSlide(slideDirections.RIGHT);
 
-    scrollIntoView(
-      itemsRef.current[scrollTo],
-      {
-        time: time ? time : 350,
-        align: { left: 0.001, lockY: true },
-        cancellable: false,
-      },
-      function (_completed) {
-        if (scrollTo + visibleItems < itemsRef.current.length - 1)
-          setDisableRightButton(false);
-        setDisableLeftButton(false);
-      }
-    );
+    setScrollTo({ to: scrollToRight, direction: slideDirections.RIGHT });
   };
 
   const slideLeft = () => {
-    setDisableLeftButton(true);
-    setDisableRightButton(true);
-    setLimitRightSlide(false);
+    setLockSlide(slideDirections.NONE);
 
     let visibleItems = 0;
     let firstVisibleItem = 0;
-    let scrollTo = 0;
+    let scrollToLeft = 0;
 
     itemsRef.current.forEach((item, index) => {
       if (item.isVisible) visibleItems++;
@@ -95,25 +111,17 @@ const Slider: React.FC<props> = ({
       }
     });
 
-    scrollTo = firstVisibleItem - visibleItems;
+    scrollToLeft = firstVisibleItem - visibleItems;
 
-    if (scrollTo <= 0) {
-      setLimitLeftSlide(true);
-      scrollTo = 0;
+    if (scrollToLeft <= 0) {
+      setLockSlide(slideDirections.LEFT);
+      scrollToLeft = 0;
     }
 
-    scrollIntoView(
-      itemsRef.current[scrollTo],
-      {
-        time: time ? time : 350,
-        align: { left: 0.001, lockY: true },
-        cancellable: false,
-      },
-      function (_completed) {
-        if (scrollTo !== 0) setDisableLeftButton(false);
-        setDisableRightButton(false);
-      }
-    );
+    setScrollTo({
+      to: scrollToLeft,
+      direction: slideDirections.LEFT,
+    });
   };
 
   return (
@@ -127,7 +135,7 @@ const Slider: React.FC<props> = ({
       >
         <button
           onClick={() => slideLeft()}
-          disabled={disableLeftButton}
+          disabled={disableButtons}
           className={css`
             display: flex;
             align-items: center;
@@ -149,11 +157,11 @@ const Slider: React.FC<props> = ({
 
             transition: visibility 0.5s, opacity 0.5s;
 
-            visibility: ${!limitLeftSlide && visibleButtons
+            visibility: ${lockSlide !== "left" && visibleButtons
               ? "visible"
               : "hidden"};
-            opacity: ${!limitLeftSlide && visibleButtons ? "1" : "0"};
-            pointer-events: ${!limitLeftSlide && visibleButtons
+            opacity: ${lockSlide !== "left" && visibleButtons ? "1" : "0"};
+            pointer-events: ${lockSlide !== "left" && visibleButtons
               ? "auto"
               : "none"};
           `}
@@ -195,7 +203,7 @@ const Slider: React.FC<props> = ({
         </div>
         <button
           onClick={() => slideRight()}
-          disabled={disableRightButton}
+          disabled={disableButtons}
           className={css`
             display: flex;
             align-items: center;
@@ -215,11 +223,11 @@ const Slider: React.FC<props> = ({
 
             transition: visibility 0.5s, opacity 0.5s;
 
-            visibility: ${!limitRightSlide && visibleButtons
+            visibility: ${lockSlide !== "right" && visibleButtons
               ? "visible"
               : "hidden"};
-            opacity: ${!limitRightSlide && visibleButtons ? "1" : "0"};
-            pointer-events: ${!limitRightSlide && visibleButtons
+            opacity: ${lockSlide !== "right" && visibleButtons ? "1" : "0"};
+            pointer-events: ${lockSlide !== "right" && visibleButtons
               ? "auto"
               : "none"};
           `}
