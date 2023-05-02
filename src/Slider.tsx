@@ -73,31 +73,20 @@ const Slider: React.FC<props> = ({
         setDisableButtons(false);
       }
     );
-  }, [lockSlide, scrollTo, time]);
+  }, [scrollTo, time]);
 
   useEffect(() => {
     const handleResize = () => {
-      let lastVisibleItemFromRight = 0;
-      let lastVisibleItemFromLeft = 0;
-
-      itemsRef.current.forEach((item, index) => {
-        if (
-          item.isVisible &&
-          (itemsRef.current[index + 1]?.isVisible === false ||
-            itemsRef.current[index + 1]?.isVisible === undefined)
-        )
-          lastVisibleItemFromLeft = index;
-        if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false)
-          lastVisibleItemFromRight = index;
-      });
-
-      if (lastVisibleItemFromLeft !== 0) {
-        setLockSlide(slideDirections.NONE);
-      }
-      if (lastVisibleItemFromRight >= itemsRef.current.length - 1)
+      if (itemsRef.current[0]?.isVisible === true)
+        setLockSlide(slideDirections.LEFT);
+      /*if (itemsRef.current[itemsRef.current.length - 1]?.isVisible === true)
+        setLockSlide(slideDirections.RIGHT);*/
+      if (
+        itemsRef.current[0]?.isVisible === false &&
+        itemsRef.current[itemsRef.current.length - 1]?.isVisible === false
+      )
         setLockSlide(slideDirections.NONE);
     };
-
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -121,7 +110,7 @@ const Slider: React.FC<props> = ({
         scrollToRight = index + 1;
     });
 
-    if (scrollToRight + visibleItems >= itemsRef.current.length - 1)
+    if (scrollToRight + visibleItems >= itemsRef.current.length)
       setLockSlide(slideDirections.RIGHT);
 
     setScrollTo({ to: scrollToRight, direction: slideDirections.RIGHT });
@@ -204,6 +193,10 @@ const Slider: React.FC<props> = ({
             overflow: scroll;
             width: ${width ? `${width}px` : `1200px`};
 
+            @media (max-width: 1300px) {
+              width: 900px;
+            }
+
             ${disableScrollbar &&
             `
               -ms-overflow-style: none;
@@ -226,6 +219,7 @@ const Slider: React.FC<props> = ({
               {(isVisible: boolean) => {
                 if (itemsRef.current[index])
                   itemsRef.current[index].isVisible = isVisible;
+                //console.log(isVisible, index);
                 return item;
               }}
             </Sensor>
