@@ -27,6 +27,7 @@ enum slideDirections {
   LEFT = "left",
   RIGHT = "right",
   NONE = "",
+  BOTH = "left right",
 }
 
 type scrollTo = {
@@ -48,16 +49,35 @@ const Slider: React.FC<props> = ({
 }: props) => {
   const itemsRef = useRef<Array<SensorRef>>([]);
 
+  useEffect(() => {
+    itemsRef.current.splice(items.length - 1);
+  }, [items]);
+
   const [scrollTo, setScrollTo] = useState<scrollTo>({
     to: 0,
     direction: slideDirections.LEFT,
   });
+
   const [disableButtons, setDisableButtons] = useState<boolean>(true);
   const [lockSlide, setLockSlide] = useState<slideDirections>(
-    slideDirections.LEFT
+    slideDirections.BOTH
   );
 
   const [visibleButtons, setVisibleButtons] = useState<boolean>(false);
+
+  const evaluteButtonsLock = () => {
+    setLockSlide(slideDirections.NONE);
+
+    if (itemsRef.current[0]?.isVisible === true)
+      setLockSlide(slideDirections.LEFT);
+    if (itemsRef.current[itemsRef.current.length - 1]?.isVisible === true)
+      setLockSlide(slideDirections.RIGHT);
+    if (
+      itemsRef.current[0]?.isVisible === true &&
+      itemsRef.current[itemsRef.current.length - 1]?.isVisible === true
+    )
+      setLockSlide(slideDirections.BOTH);
+  };
 
   useEffect(() => {
     setDisableButtons(true);
@@ -71,26 +91,16 @@ const Slider: React.FC<props> = ({
       },
       function (_completed) {
         setDisableButtons(false);
+        evaluteButtonsLock();
       }
     );
-  }, [scrollTo, time]);
+  }, [scrollTo, time, items]);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (itemsRef.current[0]?.isVisible === true)
-        setLockSlide(slideDirections.LEFT);
-      /*if (itemsRef.current[itemsRef.current.length - 1]?.isVisible === true)
-        setLockSlide(slideDirections.RIGHT);*/
-      if (
-        itemsRef.current[0]?.isVisible === false &&
-        itemsRef.current[itemsRef.current.length - 1]?.isVisible === false
-      )
-        setLockSlide(slideDirections.NONE);
-    };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", evaluteButtonsLock);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", evaluteButtonsLock);
     };
   }, []);
 
@@ -176,11 +186,13 @@ const Slider: React.FC<props> = ({
 
             transition: visibility 0.5s, opacity 0.5s;
 
-            visibility: ${lockSlide !== "left" && visibleButtons
+            visibility: ${!lockSlide.includes("left") && visibleButtons
               ? "visible"
               : "hidden"};
-            opacity: ${lockSlide !== "left" && visibleButtons ? "1" : "0"};
-            pointer-events: ${lockSlide !== "left" && visibleButtons
+            opacity: ${!lockSlide.includes("left") && visibleButtons
+              ? "1"
+              : "0"};
+            pointer-events: ${!lockSlide.includes("left") && visibleButtons
               ? "auto"
               : "none"};
           `}
@@ -219,7 +231,6 @@ const Slider: React.FC<props> = ({
               {(isVisible: boolean) => {
                 if (itemsRef.current[index])
                   itemsRef.current[index].isVisible = isVisible;
-                //console.log(isVisible, index);
                 return item;
               }}
             </Sensor>
@@ -247,11 +258,13 @@ const Slider: React.FC<props> = ({
 
             transition: visibility 0.5s, opacity 0.5s;
 
-            visibility: ${lockSlide !== "right" && visibleButtons
+            visibility: ${!lockSlide.includes("right") && visibleButtons
               ? "visible"
               : "hidden"};
-            opacity: ${lockSlide !== "right" && visibleButtons ? "1" : "0"};
-            pointer-events: ${lockSlide !== "right" && visibleButtons
+            opacity: ${!lockSlide.includes("right") && visibleButtons
+              ? "1"
+              : "0"};
+            pointer-events: ${!lockSlide.includes("right") && visibleButtons
               ? "auto"
               : "none"};
           `}
