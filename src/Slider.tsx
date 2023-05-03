@@ -59,6 +59,7 @@ const Slider: React.FC<props> = ({
   });
 
   const [disableButtons, setDisableButtons] = useState<boolean>(true);
+
   const [lockSlide, setLockSlide] = useState<slideDirections>(
     slideDirections.BOTH
   );
@@ -66,17 +67,20 @@ const Slider: React.FC<props> = ({
   const [visibleButtons, setVisibleButtons] = useState<boolean>(false);
 
   const evaluteButtonsLock = () => {
-    setLockSlide(slideDirections.NONE);
+    setTimeout(() => {
+      setLockSlide(slideDirections.NONE);
 
-    if (itemsRef.current[0]?.isVisible === true)
-      setLockSlide(slideDirections.LEFT);
-    if (itemsRef.current[itemsRef.current.length - 1]?.isVisible === true)
-      setLockSlide(slideDirections.RIGHT);
-    if (
-      itemsRef.current[0]?.isVisible === true &&
-      itemsRef.current[itemsRef.current.length - 1]?.isVisible === true
-    )
-      setLockSlide(slideDirections.BOTH);
+      if (itemsRef.current[0]?.isVisible === true) {
+        setLockSlide(slideDirections.LEFT);
+      }
+      if (itemsRef.current[itemsRef.current.length - 1]?.isVisible === true)
+        setLockSlide(slideDirections.RIGHT);
+      if (
+        itemsRef.current[0]?.isVisible === true &&
+        itemsRef.current[itemsRef.current.length - 1]?.isVisible === true
+      )
+        setLockSlide(slideDirections.BOTH);
+    }, 0);
   };
 
   useEffect(() => {
@@ -200,6 +204,7 @@ const Slider: React.FC<props> = ({
           <BsChevronLeft />
         </button>
         <div
+          id="asdfdfas"
           className={`${css`
             white-space: nowrap;
             overflow: scroll;
@@ -229,8 +234,10 @@ const Slider: React.FC<props> = ({
               }}
             >
               {(isVisible: boolean) => {
-                if (itemsRef.current[index])
+                if (itemsRef.current[index]) {
                   itemsRef.current[index].isVisible = isVisible;
+                  evaluteButtonsLock();
+                }
                 return item;
               }}
             </Sensor>
