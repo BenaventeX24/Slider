@@ -13,6 +13,7 @@ type props = {
   buttonRight?: JSX.Element;
   disableScrollbar?: boolean;
   width?: number;
+  showButtons?: boolean;
   sliderContainerStyles?: {
     (template: TemplateStringsArray, ...args: CSSInterpolation[]): string;
     (...args: CSSInterpolation[]): string;
@@ -44,6 +45,7 @@ const Slider: React.FC<props> = ({
   time,
   disableScrollbar,
   width,
+  showButtons,
   sliderContainerStyles,
   itemsContainerStyles,
 }: props) => {
@@ -101,6 +103,13 @@ const Slider: React.FC<props> = ({
   }, [scrollTo, time, items]);
 
   useEffect(() => {
+    /*const handleResize = () => {
+      setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+      });
+    }*/
+
     window.addEventListener("resize", evaluteButtonsLock);
 
     return () => {
@@ -204,14 +213,19 @@ const Slider: React.FC<props> = ({
           <BsChevronLeft />
         </button>
         <div
-          id="asdfdfas"
           className={`${css`
             white-space: nowrap;
-            overflow: scroll;
+            overflow-x: scroll;
+            overflow-y: hidden;
+
             width: ${width ? `${width}px` : `1200px`};
 
             @media (max-width: 1300px) {
               width: 900px;
+            }
+
+            @media (max-width: 393px) {
+              width: 400px;
             }
 
             ${disableScrollbar &&
