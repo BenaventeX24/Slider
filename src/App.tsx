@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "./Slider";
 import Box from "./Box";
 import { css } from "@emotion/css";
+import ExButton from "./ExButton";
 
 const items = [
   <Box>0</Box>,
@@ -59,7 +60,7 @@ function App() {
         margin-top: 50px;
       `}
     >
-      <Slider items={items} threshold={1} />
+      <Slider items={items} buttonLeft={<ExButton />} threshold={1} />
     </div>
   );
 }

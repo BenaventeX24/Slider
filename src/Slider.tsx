@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Sensor, { SensorRef } from "./Sensor";
 import scrollIntoView from "scroll-into-view";
 import { CSSInterpolation, css } from "@emotion/css";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import SliderContainer from "./SliderContainer";
+import LeftButton from "./LeftButton";
+import ItemsContainer from "./ItemsContainer";
+import RightButton from "./RightButton";
 
 type props = {
   items: JSX.Element[];
@@ -50,7 +53,8 @@ const Slider: React.FC<props> = ({
   itemsContainerStyles,
 }: props) => {
   const itemsRef = useRef<Array<SensorRef>>([]);
-  function isTouchDevice() {
+
+  function isTouchableDevice() {
     return "ontouchstart" in window || window.navigator.maxTouchPoints > 0;
   }
 
@@ -170,80 +174,49 @@ const Slider: React.FC<props> = ({
 
   return (
     <>
-      <div
-        className={`${css`
-          display: flex;
-        `} ${sliderContainerStyles}`}
-        onMouseOver={() => setVisibleButtons(!isTouchDevice())}
-        onMouseOut={() => setVisibleButtons(false)}
+      <SliderContainer
+        isTouchableDevice={isTouchableDevice}
+        setVisibleButtons={setVisibleButtons}
+        sliderContainerStyles={sliderContainerStyles}
       >
-        <button
-          onClick={() => slideLeft()}
-          disabled={disableButtons}
-          className={css`
-            display: flex;
-            align-items: center;
-            padding-right: 7px;
-            align-self: center;
-            font-size: 40px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+        {buttonLeft ? (
+          <div
+            onClick={() => slideLeft()}
+            className={css`
+              background-color: transparent;
+              border: 0;
+              padding: 0;
+              z-index: 10;
+              transition: visibility 0.5s, opacity 0.5s;
 
-            margin-right: -25px;
-            z-index: 10;
-
-            background-color: #fff;
-            border: 1px solid gray;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-
-            cursor: pointer;
-
-            transition: visibility 0.5s, opacity 0.5s;
-
-            visibility: ${!lockSlide.includes("left") && visibleButtons
-              ? "visible"
-              : "hidden"};
-            opacity: ${!lockSlide.includes("left") && visibleButtons
-              ? "1"
-              : "0"};
-            pointer-events: ${!lockSlide.includes("left") && visibleButtons
-              ? "auto"
-              : "none"};
-          `}
-        >
-          <BsChevronLeft />
-        </button>
-        <div
-          className={`${css`
-            white-space: nowrap;
-            overflow-x: scroll;
-            overflow-y: hidden;
-
-            ${width
-              ? `${width}px`
-              : `
-              width: 1200px;
-
-              @media (max-width: 1300px) {
-                width: 900px;
-              }
-  
-              @media (max-width: 768px) {
-                width: 400px;
-              }
-              `}
-
-            ${disableScrollbar &&
-            `
-              -ms-overflow-style: none;
-              scrollbar-width: none;
-              
-              &::-webkit-scrollbar {
-                display: none;
-              }
+              visibility: ${!lockSlide.includes("left") && visibleButtons
+                ? "visible"
+                : "hidden"};
+              opacity: ${!lockSlide.includes("left") && visibleButtons
+                ? "1"
+                : "0"};
+              pointer-events: ${!lockSlide.includes("left") &&
+              visibleButtons &&
+              !disableButtons
+                ? "auto"
+                : "none"};
             `}
-          `} ${itemsContainerStyles}`}
+          >
+            {buttonLeft}
+          </div>
+        ) : (
+          <LeftButton
+            disableButtons={disableButtons}
+            visibleButtons={visibleButtons}
+            lockSlide={lockSlide}
+            slideLeft={slideLeft}
+          />
+        )}
+
+        <ItemsContainer
+          width={width}
+          disableScrollbar={disableScrollbar}
+          itemsContainerStyles={itemsContainerStyles}
         >
           {items.map((item, index) => (
             <Sensor
@@ -262,43 +235,41 @@ const Slider: React.FC<props> = ({
               }}
             </Sensor>
           ))}
-        </div>
-        <button
-          onClick={() => slideRight()}
-          disabled={disableButtons}
-          className={css`
-            display: flex;
-            align-items: center;
-            padding-left: 7px;
-            align-self: center;
-            font-size: 40px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: none;
-            margin-left: -25px;
-            z-index: 10;
-            background-color: #fff;
-            border: 1px solid gray;
-            box-shadow: 0.5px 2px 4px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
+        </ItemsContainer>
+        {buttonRight ? (
+          <div
+            onClick={() => slideLeft()}
+            className={css`
+              background-color: transparent;
+              border: 0;
+              padding: 0;
+              z-index: 10;
+              transition: visibility 0.5s, opacity 0.5s;
 
-            transition: visibility 0.5s, opacity 0.5s;
-
-            visibility: ${!lockSlide.includes("right") && visibleButtons
-              ? "visible"
-              : "hidden"};
-            opacity: ${!lockSlide.includes("right") && visibleButtons
-              ? "1"
-              : "0"};
-            pointer-events: ${!lockSlide.includes("right") && visibleButtons
-              ? "auto"
-              : "none"};
-          `}
-        >
-          <BsChevronRight />
-        </button>
-      </div>
+              visibility: ${!lockSlide.includes("right") && visibleButtons
+                ? "visible"
+                : "hidden"};
+              opacity: ${!lockSlide.includes("right") && visibleButtons
+                ? "1"
+                : "0"};
+              pointer-events: ${!lockSlide.includes("right") &&
+              visibleButtons &&
+              !disableButtons
+                ? "auto"
+                : "none"};
+            `}
+          >
+            {buttonRight}
+          </div>
+        ) : (
+          <RightButton
+            disableButtons={disableButtons}
+            visibleButtons={visibleButtons}
+            lockSlide={lockSlide}
+            slideRight={slideRight}
+          />
+        )}
+      </SliderContainer>
     </>
   );
 };
