@@ -25,7 +25,7 @@ const items = [
   <Box>18</Box>,
   <Box>19</Box>,
   <Box>20</Box>,
-  /*<Box>21</Box>,
+  <Box>21</Box>,
   <Box>22</Box>,
   <Box>23</Box>,
   <Box>24</Box>,
@@ -47,7 +47,7 @@ const items = [
   <Box>40</Box>,
   <Box>41</Box>,
   <Box>42</Box>,
-  <Box>43</Box>,*/
+  <Box>43</Box>,
 ];
 
 function App() {
@@ -59,7 +59,7 @@ function App() {
         margin-top: 50px;
       `}
     >
-      <Slider items={items} threshold={0.9} />
+      <Slider items={items} threshold={1} />
     </div>
   );
 }

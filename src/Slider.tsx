@@ -50,6 +50,9 @@ const Slider: React.FC<props> = ({
   itemsContainerStyles,
 }: props) => {
   const itemsRef = useRef<Array<SensorRef>>([]);
+  function isTouchDevice() {
+    return "ontouchstart" in window || window.navigator.maxTouchPoints > 0;
+  }
 
   useEffect(() => {
     itemsRef.current.splice(items.length - 1);
@@ -87,12 +90,13 @@ const Slider: React.FC<props> = ({
 
   useEffect(() => {
     setDisableButtons(true);
+    const align = scrollTo.direction === slideDirections.RIGHT ? 0.001 : 1;
 
     scrollIntoView(
       itemsRef.current[scrollTo.to],
       {
         time: time ? time : 350,
-        align: { left: 0.001, lockY: true },
+        align: { left: align, lockY: true },
         cancellable: false,
       },
       function (_completed) {
@@ -142,18 +146,16 @@ const Slider: React.FC<props> = ({
   const slideLeft = () => {
     setLockSlide(slideDirections.NONE);
 
-    let visibleItems = 0;
     let firstVisibleItem = 0;
     let scrollToLeft = 0;
 
     itemsRef.current.forEach((item, index) => {
-      if (item.isVisible) visibleItems++;
       if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false) {
         firstVisibleItem = index;
       }
     });
 
-    scrollToLeft = firstVisibleItem - visibleItems;
+    scrollToLeft = firstVisibleItem - 1;
 
     if (scrollToLeft <= 0) {
       setLockSlide(slideDirections.LEFT);
@@ -172,7 +174,7 @@ const Slider: React.FC<props> = ({
         className={`${css`
           display: flex;
         `} ${sliderContainerStyles}`}
-        onMouseOver={() => setVisibleButtons(true)}
+        onMouseOver={() => setVisibleButtons(!isTouchDevice())}
         onMouseOut={() => setVisibleButtons(false)}
       >
         <button
@@ -218,15 +220,19 @@ const Slider: React.FC<props> = ({
             overflow-x: scroll;
             overflow-y: hidden;
 
-            width: ${width ? `${width}px` : `1200px`};
+            ${width
+              ? `${width}px`
+              : `
+              width: 1200px;
 
-            @media (max-width: 1300px) {
-              width: 900px;
-            }
-
-            @media (max-width: 393px) {
-              width: 400px;
-            }
+              @media (max-width: 1300px) {
+                width: 900px;
+              }
+  
+              @media (max-width: 768px) {
+                width: 400px;
+              }
+              `}
 
             ${disableScrollbar &&
             `
