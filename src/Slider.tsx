@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Sensor, { SensorRef } from "./Sensor";
 import scrollIntoView from "scroll-into-view";
-import { CSSInterpolation, css } from "@emotion/css";
+import { CSSInterpolation } from "@emotion/css";
 import SliderContainer from "./SliderContainer";
-import LeftButton from "./LeftButton";
 import ItemsContainer from "./ItemsContainer";
-import RightButton from "./RightButton";
+import { slideDirections } from "./utils";
+import SliderButton from "./SliderButton";
+import UserCustomButton from "./UserCustomButton";
 
 type props = {
   items: JSX.Element[];
@@ -26,13 +27,6 @@ type props = {
     (...args: CSSInterpolation[]): string;
   };
 };
-
-enum slideDirections {
-  LEFT = "left",
-  RIGHT = "right",
-  NONE = "",
-  BOTH = "left right",
-}
 
 type scrollTo = {
   to: number;
@@ -180,36 +174,22 @@ const Slider: React.FC<props> = ({
         sliderContainerStyles={sliderContainerStyles}
       >
         {buttonLeft ? (
-          <div
-            onClick={() => slideLeft()}
-            className={css`
-              background-color: transparent;
-              border: 0;
-              padding: 0;
-              z-index: 10;
-              transition: visibility 0.5s, opacity 0.5s;
-
-              visibility: ${!lockSlide.includes("left") && visibleButtons
-                ? "visible"
-                : "hidden"};
-              opacity: ${!lockSlide.includes("left") && visibleButtons
-                ? "1"
-                : "0"};
-              pointer-events: ${!lockSlide.includes("left") &&
-              visibleButtons &&
-              !disableButtons
-                ? "auto"
-                : "none"};
-            `}
-          >
-            {buttonLeft}
-          </div>
-        ) : (
-          <LeftButton
+          <UserCustomButton
             disableButtons={disableButtons}
             visibleButtons={visibleButtons}
             lockSlide={lockSlide}
-            slideLeft={slideLeft}
+            slideFunction={slideLeft}
+            direction={slideDirections.LEFT}
+          >
+            {buttonLeft}
+          </UserCustomButton>
+        ) : (
+          <SliderButton
+            disableButtons={disableButtons}
+            visibleButtons={visibleButtons}
+            lockSlide={lockSlide}
+            slideFunction={slideLeft}
+            direction={slideDirections.LEFT}
           />
         )}
 
@@ -237,36 +217,22 @@ const Slider: React.FC<props> = ({
           ))}
         </ItemsContainer>
         {buttonRight ? (
-          <div
-            onClick={() => slideLeft()}
-            className={css`
-              background-color: transparent;
-              border: 0;
-              padding: 0;
-              z-index: 10;
-              transition: visibility 0.5s, opacity 0.5s;
-
-              visibility: ${!lockSlide.includes("right") && visibleButtons
-                ? "visible"
-                : "hidden"};
-              opacity: ${!lockSlide.includes("right") && visibleButtons
-                ? "1"
-                : "0"};
-              pointer-events: ${!lockSlide.includes("right") &&
-              visibleButtons &&
-              !disableButtons
-                ? "auto"
-                : "none"};
-            `}
-          >
-            {buttonRight}
-          </div>
-        ) : (
-          <RightButton
+          <UserCustomButton
             disableButtons={disableButtons}
             visibleButtons={visibleButtons}
             lockSlide={lockSlide}
-            slideRight={slideRight}
+            slideFunction={slideRight}
+            direction={slideDirections.RIGHT}
+          >
+            {buttonRight}
+          </UserCustomButton>
+        ) : (
+          <SliderButton
+            disableButtons={disableButtons}
+            visibleButtons={visibleButtons}
+            lockSlide={lockSlide}
+            slideFunction={slideRight}
+            direction={slideDirections.RIGHT}
           />
         )}
       </SliderContainer>

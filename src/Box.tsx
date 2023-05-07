@@ -12,8 +12,8 @@ const Box: React.FC<Props> = ({ children }: Props) => {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 200px;
         border: 1px solid black;
         background-color: aqua;
       `}

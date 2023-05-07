@@ -8,17 +8,26 @@ const ExButton: React.FC = () => {
       <button
         className={css`
           display: flex;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: -25px;
+          cursor: pointer;
           align-items: center;
-          padding-left: 7px;
+          padding-right: 7px;
           align-self: center;
+          justify-self: center;
+
           font-size: 40px;
           width: 45px;
-          height: 100%;
-          border: none;
+          height: 45px;
+          border-radius: 50%;
+
           z-index: 10;
-          margin-right: -50px;
-          background-color: rgb(0, 0, 0, 0.5);
-          cursor: pointer;
+
+          background-color: #fff;
+          border: 1px solid gray;
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         `}
       >
         <BsChevronLeft />

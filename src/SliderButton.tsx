@@ -1,24 +1,27 @@
 import React from "react";
 import { css } from "@emotion/css";
-import { BsChevronLeft } from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { slideDirections } from "./utils";
 
 type props = {
   disableButtons: boolean;
   visibleButtons: boolean;
   lockSlide: string;
-  slideLeft: () => void;
+  slideFunction: () => void;
+  direction: slideDirections;
 };
 
 const LeftButton: React.FC<props> = ({
   disableButtons,
   visibleButtons,
   lockSlide,
-  slideLeft,
+  slideFunction,
+  direction,
 }: props) => {
   return (
     <>
       <button
-        onClick={() => slideLeft()}
+        onClick={() => slideFunction()}
         disabled={disableButtons}
         className={css`
           display: flex;
@@ -37,20 +40,21 @@ const LeftButton: React.FC<props> = ({
           border: 1px solid gray;
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
-          cursor: pointer;
-
           transition: visibility 0.5s, opacity 0.5s;
 
-          visibility: ${!lockSlide.includes("left") && visibleButtons
+          visibility: ${!lockSlide.includes(direction) && visibleButtons
             ? "visible"
             : "hidden"};
-          opacity: ${!lockSlide.includes("left") && visibleButtons ? "1" : "0"};
-          pointer-events: ${!lockSlide.includes("left") && visibleButtons
+          opacity: ${!lockSlide.includes(direction) && visibleButtons
+            ? "1"
+            : "0"};
+          pointer-events: ${!lockSlide.includes(direction) && visibleButtons
             ? "auto"
             : "none"};
         `}
       >
-        <BsChevronLeft />
+        {direction.includes(slideDirections.LEFT) && <BsChevronLeft />}
+        {direction.includes(slideDirections.RIGHT) && <BsChevronRight />}
       </button>
     </>
   );
