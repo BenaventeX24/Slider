@@ -6,10 +6,11 @@ import ItemsContainer from "./ItemsContainer";
 import { slideDirections } from "./utils";
 import SliderButton from "./SliderButton";
 import UserCustomButton from "./UserCustomButton";
+import { CSSInterpolation } from "@emotion/css";
 
 type props = {
   items: JSX.Element[];
-  threshold: number | number[];
+  threshold?: number | number[];
   spacing?: string;
   time?: number;
   styles?: React.CSSProperties;
@@ -18,8 +19,8 @@ type props = {
   disableScrollbar?: boolean;
   width?: number;
   showButtons?: boolean;
-  sliderContainerStyles?: string;
-  itemsContainerStyles?: string;
+  sliderContainerStyles?: CSSInterpolation;
+  itemsContainerStyles?: CSSInterpolation;
 };
 
 type scrollTo = {
@@ -197,7 +198,7 @@ const Slider: React.FC<props> = ({
             <Sensor
               spacing={spacing}
               key={index}
-              threshold={threshold}
+              threshold={threshold ? threshold : 1}
               ref={(element: SensorRef) => {
                 itemsRef.current[index] = element;
               }}

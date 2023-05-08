@@ -59,7 +59,14 @@ function App() {
         margin-top: 50px;
       `}
     >
-      <Slider items={items} threshold={1} />
+      <Slider
+        items={items}
+        threshold={1}
+        itemsContainerStyles={css`
+          padding: 20px;
+          background-color: red;
+        `}
+      />
     </div>
   );
 }

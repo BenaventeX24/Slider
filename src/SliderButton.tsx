@@ -27,15 +27,16 @@ const LeftButton: React.FC<props> = ({
           display: flex;
           align-items: center;
           padding-right: ${direction.includes(slideDirections.LEFT) && "8px"};
+          margin-right: ${direction.includes(slideDirections.LEFT) && "-25px"};
           padding-left: ${direction.includes(slideDirections.RIGHT) && "8px"};
+          margin-left: ${direction.includes(slideDirections.RIGHT) && "-25px"};
           align-self: center;
           font-size: 40px;
           width: 45px;
           height: 45px;
           border-radius: 50%;
+          cursor: pointer;
 
-          margin-right: ${direction.includes(slideDirections.LEFT) && "-25px"};
-          margin-left: ${direction.includes(slideDirections.RIGHT) && "-25px"};
           z-index: 10;
 
           background-color: #fff;
