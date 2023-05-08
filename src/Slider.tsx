@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Children, ReactNode } from "react";
 import Sensor, { SensorRef } from "./Sensor";
 import scrollIntoView from "scroll-into-view";
 import SliderContainer from "./SliderContainer";
@@ -9,7 +9,7 @@ import UserCustomButton from "./UserCustomButton";
 import { CSSInterpolation } from "@emotion/css";
 
 type props = {
-  items: JSX.Element[];
+  children: ReactNode;
   threshold?: number | number[];
   spacing?: string;
   time?: number;
@@ -29,7 +29,7 @@ type scrollTo = {
 };
 
 const Slider: React.FC<props> = ({
-  items,
+  children,
   styles,
   spacing,
   buttonLeft,
@@ -42,6 +42,7 @@ const Slider: React.FC<props> = ({
   sliderContainerStyles,
   itemsContainerStyles,
 }: props) => {
+  const items = Children.toArray(children);
   const itemsRef = useRef<Array<SensorRef>>([]);
 
   function isTouchableDevice() {
