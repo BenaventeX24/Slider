@@ -10,6 +10,7 @@ import UserCustomButton from "./UserCustomButton";
 type props = {
   items: JSX.Element[];
   threshold: number | number[];
+  spacing?: string;
   time?: number;
   styles?: React.CSSProperties;
   buttonLeft?: JSX.Element;
@@ -29,6 +30,7 @@ type scrollTo = {
 const Slider: React.FC<props> = ({
   items,
   styles,
+  spacing,
   buttonLeft,
   buttonRight,
   threshold,
@@ -193,6 +195,7 @@ const Slider: React.FC<props> = ({
         >
           {items.map((item, index) => (
             <Sensor
+              spacing={spacing}
               key={index}
               threshold={threshold}
               ref={(element: SensorRef) => {

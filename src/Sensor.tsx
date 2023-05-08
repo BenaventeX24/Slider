@@ -5,6 +5,7 @@ import { css } from "@emotion/css";
 type Props = {
   children: (isVisible: boolean) => React.ReactNode;
   threshold: number | number[];
+  spacing?: string;
 };
 
 export interface SensorRef extends HTMLDivElement {
@@ -12,7 +13,7 @@ export interface SensorRef extends HTMLDivElement {
 }
 
 const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
-  { children, threshold },
+  { children, threshold, spacing },
   ref
 ) => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -47,6 +48,14 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
       ref={mergeRefs([targetRef, ref])}
       className={css`
         display: inline-block;
+        margin: 0 ${spacing};
+
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
       `}
     >
       {children(isVisible)}
