@@ -7,6 +7,7 @@ import { slideDirections } from "./utils";
 import SliderButton from "./SliderButton";
 import UserCustomButton from "./UserCustomButton";
 import { CSSInterpolation } from "@emotion/css";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 type props = {
   children: ReactNode;
@@ -182,7 +183,9 @@ const Slider: React.FC<props> = ({
             locked={lockSlide}
             onClick={slideLeft}
             direction={slideDirections.LEFT}
-          />
+          >
+            <BsChevronLeft />
+          </SliderButton>
         )}
 
         <ItemsContainer
@@ -226,7 +229,9 @@ const Slider: React.FC<props> = ({
             locked={lockSlide}
             onClick={slideRight}
             direction={slideDirections.RIGHT}
-          />
+          >
+            <BsChevronRight />
+          </SliderButton>
         )}
       </SliderContainer>
     </>

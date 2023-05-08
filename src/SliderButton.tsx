@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { css } from "@emotion/css";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { slideDirections } from "./utils";
 
 type props = {
+  children: ReactNode;
   disabled: boolean;
   visible: boolean;
   locked: string;
@@ -12,6 +12,7 @@ type props = {
 };
 
 const LeftButton: React.FC<props> = ({
+  children,
   disabled,
   visible,
   locked,
@@ -54,8 +55,7 @@ const LeftButton: React.FC<props> = ({
             : "none"};
         `}
       >
-        {direction.includes(slideDirections.LEFT) && <BsChevronLeft />}
-        {direction.includes(slideDirections.RIGHT) && <BsChevronRight />}
+        {children}
       </button>
     </>
   );
