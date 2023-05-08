@@ -4,25 +4,25 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { slideDirections } from "./utils";
 
 type props = {
-  disableButtons: boolean;
-  visibleButtons: boolean;
-  lockSlide: string;
-  slideFunction: () => void;
+  disabled: boolean;
+  visible: boolean;
+  locked: string;
+  onClick: () => void;
   direction: slideDirections;
 };
 
 const LeftButton: React.FC<props> = ({
-  disableButtons,
-  visibleButtons,
-  lockSlide,
-  slideFunction,
+  disabled,
+  visible,
+  locked,
+  onClick,
   direction,
 }: props) => {
   return (
     <>
       <button
-        onClick={() => slideFunction()}
-        disabled={disableButtons}
+        onClick={() => onClick()}
+        disabled={disabled}
         className={css`
           display: flex;
           align-items: center;
@@ -45,13 +45,11 @@ const LeftButton: React.FC<props> = ({
 
           transition: visibility 0.5s, opacity 0.5s;
 
-          visibility: ${!lockSlide.includes(direction) && visibleButtons
+          visibility: ${!locked.includes(direction) && visible
             ? "visible"
             : "hidden"};
-          opacity: ${!lockSlide.includes(direction) && visibleButtons
-            ? "1"
-            : "0"};
-          pointer-events: ${!lockSlide.includes(direction) && visibleButtons
+          opacity: ${!locked.includes(direction) && visible ? "1" : "0"};
+          pointer-events: ${!locked.includes(direction) && visible
             ? "auto"
             : "none"};
         `}

@@ -172,20 +172,20 @@ const Slider: React.FC<props> = ({
       >
         {buttonLeft ? (
           <UserCustomButton
-            disableButtons={disableButtons}
-            visibleButtons={visibleButtons}
-            lockSlide={lockSlide}
-            slideFunction={slideLeft}
+            disabled={disableButtons}
+            visible={visibleButtons}
+            locked={lockSlide}
+            onClick={slideLeft}
             direction={slideDirections.LEFT}
           >
             {buttonLeft}
           </UserCustomButton>
         ) : (
           <SliderButton
-            disableButtons={disableButtons}
-            visibleButtons={visibleButtons}
-            lockSlide={lockSlide}
-            slideFunction={slideLeft}
+            disabled={disableButtons}
+            visible={visibleButtons}
+            locked={lockSlide}
+            onClick={slideLeft}
             direction={slideDirections.LEFT}
           />
         )}
@@ -216,20 +216,20 @@ const Slider: React.FC<props> = ({
         </ItemsContainer>
         {buttonRight ? (
           <UserCustomButton
-            disableButtons={disableButtons}
-            visibleButtons={visibleButtons}
-            lockSlide={lockSlide}
-            slideFunction={slideRight}
+            disabled={disableButtons}
+            visible={visibleButtons}
+            locked={lockSlide}
+            onClick={slideRight}
             direction={slideDirections.RIGHT}
           >
             {buttonRight}
           </UserCustomButton>
         ) : (
           <SliderButton
-            disableButtons={disableButtons}
-            visibleButtons={visibleButtons}
-            lockSlide={lockSlide}
-            slideFunction={slideRight}
+            disabled={disableButtons}
+            visible={visibleButtons}
+            locked={lockSlide}
+            onClick={slideRight}
             direction={slideDirections.RIGHT}
           />
         )}

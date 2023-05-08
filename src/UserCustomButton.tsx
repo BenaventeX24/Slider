@@ -3,25 +3,25 @@ import React from "react";
 import { slideDirections } from "./utils";
 
 type props = {
-  disableButtons: boolean;
-  visibleButtons: boolean;
-  lockSlide: string;
-  slideFunction: () => void;
+  disabled: boolean;
+  visible: boolean;
+  locked: string;
+  onClick: () => void;
   children: JSX.Element;
   direction: slideDirections;
 };
 
 const UserCustomButton: React.FC<props> = ({
-  disableButtons,
-  visibleButtons,
-  lockSlide,
-  slideFunction,
+  disabled,
+  visible,
+  locked,
+  onClick,
   children,
   direction,
 }: props) => {
   return (
     <div
-      onClick={() => slideFunction()}
+      onClick={() => onClick()}
       className={css`
         position: relative;
         background-color: transparent;
@@ -31,15 +31,11 @@ const UserCustomButton: React.FC<props> = ({
 
         & button {
           transition: visibility 0.5s, opacity 0.5s;
-          visibility: ${!lockSlide.includes(direction) && visibleButtons
+          visibility: ${!locked.includes(direction) && visible
             ? "visible"
             : "hidden"};
-          opacity: ${!lockSlide.includes(direction) && visibleButtons
-            ? "1"
-            : "0"};
-          pointer-events: ${!lockSlide.includes(direction) &&
-          visibleButtons &&
-          !disableButtons
+          opacity: ${!locked.includes(direction) && visible ? "1" : "0"};
+          pointer-events: ${!locked.includes(direction) && visible && !disabled
             ? "auto"
             : "none"};
         }
