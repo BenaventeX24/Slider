@@ -31,9 +31,22 @@ const ItemsContainer: React.FC<props> = ({
                 width: 900px;
               }
   
-              @media (max-width: 768px) {
+              @media (max-width: 960px) {
+                width: 600px;
+              }
+
+              @media (max-width: 668px) {
                 width: 400px;
               }
+
+              @media (max-width: 420px) {
+                width: 300px;
+              }
+
+              @media (max-width: 320px) {
+                width: 260px;
+              }
+
               `}
 
           ${disableScrollbar &&
