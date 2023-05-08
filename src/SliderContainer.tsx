@@ -3,7 +3,6 @@ import { CSSInterpolation, css } from "@emotion/css";
 
 type props = {
   children: React.ReactNode;
-  isTouchableDevice: () => boolean;
   setVisibleButtons: React.Dispatch<React.SetStateAction<boolean>>;
   sliderContainerStyles?: CSSInterpolation;
 };
@@ -12,8 +11,10 @@ const SliderContainer: React.FC<props> = ({
   children,
   sliderContainerStyles,
   setVisibleButtons,
-  isTouchableDevice,
 }: props) => {
+  function isTouchableDevice() {
+    return "ontouchstart" in window || window.navigator.maxTouchPoints > 0;
+  }
   return (
     <>
       <div

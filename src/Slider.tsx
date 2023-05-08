@@ -45,10 +45,6 @@ const Slider: React.FC<props> = ({
   const items = Children.toArray(children);
   const itemsRef = useRef<Array<SensorRef>>([]);
 
-  function isTouchableDevice() {
-    return "ontouchstart" in window || window.navigator.maxTouchPoints > 0;
-  }
-
   useEffect(() => {
     itemsRef.current.splice(items.length - 1);
   }, [items]);
@@ -166,7 +162,6 @@ const Slider: React.FC<props> = ({
   return (
     <>
       <SliderContainer
-        isTouchableDevice={isTouchableDevice}
         setVisibleButtons={setVisibleButtons}
         sliderContainerStyles={sliderContainerStyles}
       >
