@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Sensor, { SensorRef } from "./Sensor";
 import scrollIntoView from "scroll-into-view";
-import { CSSInterpolation } from "@emotion/css";
 import SliderContainer from "./SliderContainer";
 import ItemsContainer from "./ItemsContainer";
 import { slideDirections } from "./utils";
@@ -18,14 +17,8 @@ type props = {
   disableScrollbar?: boolean;
   width?: number;
   showButtons?: boolean;
-  sliderContainerStyles?: {
-    (template: TemplateStringsArray, ...args: CSSInterpolation[]): string;
-    (...args: CSSInterpolation[]): string;
-  };
-  itemsContainerStyles?: {
-    (template: TemplateStringsArray, ...args: CSSInterpolation[]): string;
-    (...args: CSSInterpolation[]): string;
-  };
+  sliderContainerStyles?: string;
+  itemsContainerStyles?: string;
 };
 
 type scrollTo = {

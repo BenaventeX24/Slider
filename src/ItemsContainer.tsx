@@ -1,14 +1,11 @@
 import React from "react";
-import { CSSInterpolation, css } from "@emotion/css";
+import { css } from "@emotion/css";
 
 type props = {
   children: React.ReactNode;
   width?: number;
   disableScrollbar?: boolean;
-  itemsContainerStyles?: {
-    (template: TemplateStringsArray, ...args: CSSInterpolation[]): string;
-    (...args: CSSInterpolation[]): string;
-  };
+  itemsContainerStyles?: string;
 };
 
 const ItemsContainer: React.FC<props> = ({

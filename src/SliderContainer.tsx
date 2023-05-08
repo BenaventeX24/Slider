@@ -1,14 +1,11 @@
 import React from "react";
-import { CSSInterpolation, css } from "@emotion/css";
+import { css } from "@emotion/css";
 
 type props = {
   children: React.ReactNode;
   isTouchableDevice: () => boolean;
   setVisibleButtons: React.Dispatch<React.SetStateAction<boolean>>;
-  sliderContainerStyles?: {
-    (template: TemplateStringsArray, ...args: CSSInterpolation[]): string;
-    (...args: CSSInterpolation[]): string;
-  };
+  sliderContainerStyles?: string;
 };
 
 const SliderContainer: React.FC<props> = ({
