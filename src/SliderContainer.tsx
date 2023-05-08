@@ -21,8 +21,8 @@ const SliderContainer: React.FC<props> = ({
         className={`${css`
           display: flex;
         `} ${sliderContainerStyles}`}
-        onMouseOver={() => setVisibleButtons(!isTouchableDevice())}
-        onMouseOut={() => setVisibleButtons(false)}
+        onMouseOver={() => !isTouchableDevice() && setVisibleButtons(true)}
+        onMouseOut={() => !isTouchableDevice() && setVisibleButtons(false)}
       >
         {children}
       </div>

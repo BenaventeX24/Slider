@@ -9,6 +9,7 @@ type props = {
   onClick: () => void;
   children: JSX.Element;
   direction: slideDirections;
+  disappearingButtons: boolean;
 };
 
 const UserCustomButton: React.FC<props> = ({
@@ -18,6 +19,7 @@ const UserCustomButton: React.FC<props> = ({
   onClick,
   children,
   direction,
+  disappearingButtons,
 }: props) => {
   return (
     <div
@@ -31,13 +33,19 @@ const UserCustomButton: React.FC<props> = ({
 
         & button {
           transition: visibility 0.5s, opacity 0.5s;
-          visibility: ${!locked.includes(direction) && visible
-            ? "visible"
-            : "hidden"};
+
+          ${disappearingButtons &&
+          `
+          visibility: ${
+            !locked.includes(direction) && visible ? "visible" : "hidden"
+          };
           opacity: ${!locked.includes(direction) && visible ? "1" : "0"};
-          pointer-events: ${!locked.includes(direction) && visible && !disabled
-            ? "auto"
-            : "none"};
+          pointer-events: ${
+            !locked.includes(direction) && visible && !disabled
+              ? "auto"
+              : "none"
+          };
+            `}
         }
       `}
     >

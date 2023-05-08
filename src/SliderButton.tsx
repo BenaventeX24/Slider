@@ -9,6 +9,7 @@ type props = {
   locked: string;
   onClick: () => void;
   direction: slideDirections;
+  disappearingButtons: boolean;
 };
 
 const LeftButton: React.FC<props> = ({
@@ -18,6 +19,7 @@ const LeftButton: React.FC<props> = ({
   locked,
   onClick,
   direction,
+  disappearingButtons,
 }: props) => {
   return (
     <>
@@ -46,13 +48,16 @@ const LeftButton: React.FC<props> = ({
 
           transition: visibility 0.5s, opacity 0.5s;
 
-          visibility: ${!locked.includes(direction) && visible
-            ? "visible"
-            : "hidden"};
+          ${disappearingButtons &&
+          `
+          visibility: ${
+            !locked.includes(direction) && visible ? "visible" : "hidden"
+          };
           opacity: ${!locked.includes(direction) && visible ? "1" : "0"};
-          pointer-events: ${!locked.includes(direction) && visible
-            ? "auto"
-            : "none"};
+          pointer-events: ${
+            !locked.includes(direction) && visible ? "auto" : "none"
+          };
+            `}
         `}
       >
         {children}

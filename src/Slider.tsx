@@ -22,6 +22,7 @@ type props = {
   showButtons?: boolean;
   sliderContainerStyles?: CSSInterpolation;
   itemsContainerStyles?: CSSInterpolation;
+  disappearingButtons?: boolean;
 };
 
 type scrollTo = {
@@ -37,18 +38,15 @@ const Slider: React.FC<props> = ({
   buttonRight,
   threshold,
   time,
-  disableScrollbar,
   width,
-  showButtons,
   sliderContainerStyles,
   itemsContainerStyles,
+  disableScrollbar = false,
+  showButtons = true,
+  disappearingButtons = true,
 }: props) => {
-  const items = Children.toArray(children);
   const itemsRef = useRef<Array<SensorRef>>([]);
-
-  useEffect(() => {
-    itemsRef.current.splice(items.length - 1);
-  }, [items]);
+  //const items = useMemo(() => Children.toArray(children), [children]);
 
   const [scrollTo, setScrollTo] = useState<scrollTo>({
     to: 0,
@@ -96,7 +94,7 @@ const Slider: React.FC<props> = ({
         evaluteButtonsLock();
       }
     );
-  }, [scrollTo, time, items]);
+  }, [scrollTo, time]);
 
   useEffect(() => {
     /*const handleResize = () => {
@@ -168,6 +166,7 @@ const Slider: React.FC<props> = ({
       >
         {buttonLeft ? (
           <UserCustomButton
+            disappearingButtons={disappearingButtons}
             disabled={disableButtons}
             visible={visibleButtons}
             locked={lockSlide}
@@ -178,6 +177,7 @@ const Slider: React.FC<props> = ({
           </UserCustomButton>
         ) : (
           <SliderButton
+            disappearingButtons={disappearingButtons}
             disabled={disableButtons}
             visible={visibleButtons}
             locked={lockSlide}
@@ -187,13 +187,12 @@ const Slider: React.FC<props> = ({
             <BsChevronLeft />
           </SliderButton>
         )}
-
         <ItemsContainer
           width={width}
           disableScrollbar={disableScrollbar}
           itemsContainerStyles={itemsContainerStyles}
         >
-          {items.map((item, index) => (
+          {Children.toArray(children).map((item, index) => (
             <Sensor
               spacing={spacing}
               key={index}
@@ -214,6 +213,7 @@ const Slider: React.FC<props> = ({
         </ItemsContainer>
         {buttonRight ? (
           <UserCustomButton
+            disappearingButtons={disappearingButtons}
             disabled={disableButtons}
             visible={visibleButtons}
             locked={lockSlide}
@@ -224,6 +224,7 @@ const Slider: React.FC<props> = ({
           </UserCustomButton>
         ) : (
           <SliderButton
+            disappearingButtons={disappearingButtons}
             disabled={disableButtons}
             visible={visibleButtons}
             locked={lockSlide}
