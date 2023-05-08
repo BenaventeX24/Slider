@@ -17,6 +17,8 @@ type props = {
   styles?: React.CSSProperties;
   buttonLeft?: JSX.Element;
   buttonRight?: JSX.Element;
+  buttonLeftStyles?: CSSInterpolation;
+  buttonRightStyles?: CSSInterpolation;
   disableScrollbar?: boolean;
   width?: number;
   showButtons?: boolean;
@@ -41,6 +43,8 @@ const Slider: React.FC<props> = ({
   width,
   sliderContainerStyles,
   itemsContainerStyles,
+  buttonLeftStyles,
+  buttonRightStyles,
   disableScrollbar = false,
   showButtons = true,
   disappearingButtons = true,
@@ -182,6 +186,7 @@ const Slider: React.FC<props> = ({
             visible={visibleButtons}
             locked={lockSlide}
             onClick={slideLeft}
+            styles={buttonLeftStyles}
             direction={slideDirections.LEFT}
           >
             <BsChevronLeft />
@@ -229,6 +234,7 @@ const Slider: React.FC<props> = ({
             visible={visibleButtons}
             locked={lockSlide}
             onClick={slideRight}
+            styles={buttonRightStyles}
             direction={slideDirections.RIGHT}
           >
             <BsChevronRight />

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { css } from "@emotion/css";
+import { CSSInterpolation, css } from "@emotion/css";
 import { slideDirections } from "./utils";
 
 type props = {
@@ -10,6 +10,7 @@ type props = {
   onClick: () => void;
   direction: slideDirections;
   disappearingButtons: boolean;
+  styles?: CSSInterpolation;
 };
 
 const LeftButton: React.FC<props> = ({
@@ -20,6 +21,7 @@ const LeftButton: React.FC<props> = ({
   onClick,
   direction,
   disappearingButtons,
+  styles,
 }: props) => {
   return (
     <>
@@ -58,6 +60,7 @@ const LeftButton: React.FC<props> = ({
             !locked.includes(direction) && visible ? "auto" : "none"
           };
             `}
+          ${styles}
         `}
       >
         {children}
