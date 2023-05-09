@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { CSSInterpolation, css } from "@emotion/css";
 import { slideDirections } from "./utils";
 
@@ -23,18 +23,26 @@ const LeftButton: React.FC<props> = ({
   disappearingButtons,
   styles,
 }: props) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  const innerWidth = ref.current?.offsetWidth;
+
   return (
     <>
       <button
         onClick={() => onClick()}
         disabled={disabled}
+        ref={ref}
         className={css`
           display: flex;
           align-items: center;
           padding-right: ${direction.includes(slideDirections.LEFT) && "8px"};
-          margin-right: ${direction.includes(slideDirections.LEFT) && "-25px"};
+          margin-right: ${direction.includes(slideDirections.LEFT) &&
+          innerWidth &&
+          -Math.abs(innerWidth / 2) + "px"};
           padding-left: ${direction.includes(slideDirections.RIGHT) && "8px"};
-          margin-left: ${direction.includes(slideDirections.RIGHT) && "-25px"};
+          margin-left: ${direction.includes(slideDirections.RIGHT) &&
+          innerWidth &&
+          -Math.abs(innerWidth / 2) + "px"};
           align-self: center;
           font-size: 40px;
           width: 45px;

@@ -14,7 +14,12 @@ function App() {
         margin-top: 50px;
       `}
     >
-      <Slider>
+      <Slider
+        buttonRightStyles={css`
+          width: 45px;
+          height: 45px;
+        `}
+      >
         <Box>0</Box>
         <Box>1</Box>
         <Box>2</Box>
