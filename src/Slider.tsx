@@ -101,13 +101,6 @@ const Slider: React.FC<props> = ({
   }, [scrollTo, time]);
 
   useEffect(() => {
-    /*const handleResize = () => {
-      setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight,
-      });
-    }*/
-
     window.addEventListener("resize", evaluteButtonsLock);
 
     return () => {
