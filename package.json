@@ -1,6 +1,6 @@
 {
   "name": "slider-unfinished-package",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "main": "/index.js",
   "typings": "/index.d.ts",
   "files": [
