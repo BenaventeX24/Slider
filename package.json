@@ -1,6 +1,6 @@
 {
   "name": "slider-unfinished-package",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "/index.js",
   "typings": "/index.d.ts",
   "files": [
@@ -14,8 +14,8 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "merge-refs": "^1.1.3",
     "react": "^18.2.0",
-    "react-merge-refs": "^2.0.1",
     "scroll-into-view": "^1.16.2"
   },
   "dependencies": {
