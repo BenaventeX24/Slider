@@ -1,8 +1,26 @@
 {
   "name": "slider-unfinished-package",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "/index.js",
   "typings": "/index.d.ts",
+  "description": "A fully responsive Slider for displaying multiple items in a single row with smooth animations",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BenaventeX24/Slider"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "slider",
+    "amazon-slider",
+    "netflix-slider"
+  ],
+  "author": "Matías Benavente",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BenaventeX24/Slider/issues"
+  },
+  "homepage": "https://github.com/BenaventeX24/Slider",
   "files": [
     "/dist",
     "/index.js",
@@ -14,11 +32,11 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "react": "^18.2.0",
     "@types/node": "^16.18.23",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@types/scroll-into-view": "^1.16.0",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-scripts": "5.0.1",
@@ -27,8 +45,8 @@
     "webpack": "^5.82.1"
   },
   "dependencies": {
-    "scroll-into-view": "^1.16.2",
-    "@seznam/compose-react-refs": "^1.0.6"
+    "@seznam/compose-react-refs": "^1.0.6",
+    "scroll-into-view": "^1.16.2"
   },
   "peerDependencies": {
     "@emotion/css": "^11.10.6",
