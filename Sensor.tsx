@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, forwardRef } from "react";
-import { mergeRefs } from "react-merge-refs";
+import composeRefs from "@seznam/compose-react-refs";
 import { css } from "@emotion/css";
 
 type Props = {
@@ -45,7 +45,7 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
 
   return (
     <div
-      ref={mergeRefs([targetRef, ref])}
+      ref={composeRefs(targetRef, ref)}
       className={css`
         display: inline-block;
         margin: 0 ${spacing};

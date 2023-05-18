@@ -8,11 +8,12 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "commonjs",
+    "module": "CommonJS",
     "target": "ES5",
     "moduleResolution": "node",
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "outDir": "/dist"
-  }
+    "outDir": "./dist"
+  },
+  "exclude": ["index.js", "./dist"]
 }
