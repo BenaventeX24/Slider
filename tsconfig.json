@@ -15,5 +15,6 @@
     "jsx": "react-jsx",
     "outDir": "./lib"
   },
+  "include": ["src/**/*"],
   "exclude": ["index.js", "./lib"]
 }
