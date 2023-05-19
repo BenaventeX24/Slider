@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "outDir": "./dist"
+    "outDir": "./lib"
   },
-  "exclude": ["index.js", "./dist"]
+  "exclude": ["index.js", "./lib"]
 }
