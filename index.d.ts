@@ -9,10 +9,10 @@ type Props = {
   threshold?: number;
   time?: number;
   width?: number;
-  outterContainerStyles?: CSSProperties;
-  innerContainerStyles?: CSSProperties;
-  buttonLeftStyles?: CSSProperties;
-  buttonRightStyles?: CSSProperties;
+  outterContainerStyles?: CSSInterpolation;
+  innerContainerStyles?: CSSInterpolation;
+  buttonLeftStyles?: CSSInterpolation;
+  buttonRightStyles?: CSSInterpolation;
   disableScrollbar?: boolean;
   showButtons?: boolean;
   disappearingButtons?: boolean;
