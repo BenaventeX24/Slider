@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import React, { ReactNode, CSSProperties } from "react";
+import React, { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
