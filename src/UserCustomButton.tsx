@@ -7,7 +7,7 @@ type props = {
   visible: boolean;
   locked: string;
   onClick: () => void;
-  children: JSX.Element;
+  children?: JSX.Element;
   direction: slideDirections;
   disappearingButtons: boolean;
 };

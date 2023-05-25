@@ -7,14 +7,12 @@ import { slideDirections } from "./utils";
 import SliderButton from "./SliderButton";
 import UserCustomButton from "./UserCustomButton";
 import { CSSInterpolation } from "@emotion/css";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 type props = {
   children: ReactNode;
   threshold?: number | number[];
   spacing?: string;
   time?: number;
-  styles?: React.CSSProperties;
   buttonLeft?: JSX.Element;
   buttonRight?: JSX.Element;
   buttonLeftStyles?: CSSInterpolation;
@@ -22,8 +20,8 @@ type props = {
   disableScrollbar?: boolean;
   width?: number;
   showButtons?: boolean;
-  sliderContainerStyles?: CSSInterpolation;
-  itemsContainerStyles?: CSSInterpolation;
+  outterContainerStyles?: CSSInterpolation;
+  innerContainerStyles?: CSSInterpolation;
   disappearingButtons?: boolean;
 };
 
@@ -34,15 +32,14 @@ type scrollTo = {
 
 const Slider: React.FC<props> = ({
   children,
-  styles,
   spacing,
   buttonLeft,
   buttonRight,
   threshold,
   time,
   width,
-  sliderContainerStyles,
-  itemsContainerStyles,
+  outterContainerStyles,
+  innerContainerStyles,
   buttonLeftStyles,
   buttonRightStyles,
   disableScrollbar = false,
@@ -116,6 +113,7 @@ const Slider: React.FC<props> = ({
 
     itemsRef.current.forEach((item, index) => {
       if (item.isVisible) visibleItems++;
+
       if (
         item.isVisible &&
         (itemsRef.current[index + 1]?.isVisible === false ||
@@ -155,13 +153,15 @@ const Slider: React.FC<props> = ({
     });
   };
 
+  console.log(itemsRef);
+
   return (
     <>
       <SliderContainer
         setVisibleButtons={setVisibleButtons}
-        sliderContainerStyles={sliderContainerStyles}
+        sliderContainerStyles={outterContainerStyles}
       >
-        {buttonLeft ? (
+        {buttonLeft && showButtons ? (
           <UserCustomButton
             disappearingButtons={disappearingButtons}
             disabled={disableButtons}
@@ -181,14 +181,12 @@ const Slider: React.FC<props> = ({
             onClick={slideLeft}
             styles={buttonLeftStyles}
             direction={slideDirections.LEFT}
-          >
-            <BsChevronLeft />
-          </SliderButton>
+          />
         )}
         <ItemsContainer
           width={width}
           disableScrollbar={disableScrollbar}
-          itemsContainerStyles={itemsContainerStyles}
+          itemsContainerStyles={innerContainerStyles}
         >
           {Children.toArray(children).map((item, index) => (
             <Sensor
@@ -209,7 +207,7 @@ const Slider: React.FC<props> = ({
             </Sensor>
           ))}
         </ItemsContainer>
-        {buttonRight ? (
+        {buttonLeft && showButtons ? (
           <UserCustomButton
             disappearingButtons={disappearingButtons}
             disabled={disableButtons}
@@ -229,9 +227,7 @@ const Slider: React.FC<props> = ({
             onClick={slideRight}
             styles={buttonRightStyles}
             direction={slideDirections.RIGHT}
-          >
-            <BsChevronRight />
-          </SliderButton>
+          />
         )}
       </SliderContainer>
     </>

@@ -1,9 +1,10 @@
 import React, { ReactNode, useRef } from "react";
 import { CSSInterpolation, css } from "@emotion/css";
 import { slideDirections } from "./utils";
+import ChevronLeft from "./ChevronIcons/BsChevronLeft.svg";
+import ChevronRight from "./ChevronIcons/BsChevronLeft.svg";
 
 type props = {
-  children: ReactNode;
   disabled: boolean;
   visible: boolean;
   locked: string;
@@ -14,7 +15,6 @@ type props = {
 };
 
 const LeftButton: React.FC<props> = ({
-  children,
   disabled,
   visible,
   locked,
@@ -71,7 +71,13 @@ const LeftButton: React.FC<props> = ({
           ${styles}
         `}
       >
-        {children}
+        <img
+          src={
+            direction.includes(slideDirections.LEFT)
+              ? ChevronLeft
+              : ChevronRight
+          }
+        />
       </button>
     </>
   );

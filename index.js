@@ -3,7 +3,7 @@
 
 "use strict";
 
-var _require = require("./dist/Slider"),
+var _require = require("./lib/Slider"),
   Slider = _require.default;
 
 module.exports = Slider;

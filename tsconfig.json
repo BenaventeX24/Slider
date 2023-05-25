@@ -15,6 +15,6 @@
     "jsx": "react-jsx",
     "outDir": "./lib"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/svg.d.ts"],
   "exclude": ["index.js", "./lib"]
 }
