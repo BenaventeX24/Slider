@@ -2,7 +2,7 @@ import React, { ReactNode, useRef } from "react";
 import { CSSInterpolation, css } from "@emotion/css";
 import { slideDirections } from "./utils";
 import ChevronLeft from "./ChevronIcons/BsChevronLeft.svg";
-import ChevronRight from "./ChevronIcons/BsChevronLeft.svg";
+import ChevronRight from "./ChevronIcons/BsChevronRight.svg";
 
 type props = {
   disabled: boolean;
