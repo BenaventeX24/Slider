@@ -159,7 +159,7 @@ const Slider: React.FC<props> = ({
     <>
       <SliderContainer
         setVisibleButtons={setVisibleButtons}
-        sliderContainerStyles={outterContainerStyles}
+        outterContainerStyles={outterContainerStyles}
       >
         {buttonLeft && showButtons ? (
           <UserCustomButton
@@ -186,7 +186,7 @@ const Slider: React.FC<props> = ({
         <ItemsContainer
           width={width}
           disableScrollbar={disableScrollbar}
-          itemsContainerStyles={innerContainerStyles}
+          innerContainerStyles={innerContainerStyles}
         >
           {Children.toArray(children).map((item, index) => (
             <Sensor

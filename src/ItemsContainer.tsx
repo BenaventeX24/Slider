@@ -5,14 +5,14 @@ type props = {
   children: React.ReactNode;
   width?: number;
   disableScrollbar?: boolean;
-  itemsContainerStyles?: CSSInterpolation;
+  innerContainerStyles?: CSSInterpolation;
 };
 
 const ItemsContainer: React.FC<props> = ({
   children,
   width,
   disableScrollbar,
-  itemsContainerStyles,
+  innerContainerStyles,
 }: props) => {
   return (
     <>
@@ -75,7 +75,7 @@ const ItemsContainer: React.FC<props> = ({
                 display: none;
               }
             `}
-        `} ${itemsContainerStyles}`}
+        `} ${innerContainerStyles}`}
       >
         {children}
       </div>

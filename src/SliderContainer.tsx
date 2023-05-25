@@ -4,12 +4,12 @@ import { CSSInterpolation, css } from "@emotion/css";
 type props = {
   children: React.ReactNode;
   setVisibleButtons: React.Dispatch<React.SetStateAction<boolean>>;
-  sliderContainerStyles?: CSSInterpolation;
+  outterContainerStyles?: CSSInterpolation;
 };
 
 const SliderContainer: React.FC<props> = ({
   children,
-  sliderContainerStyles,
+  outterContainerStyles,
   setVisibleButtons,
 }: props) => {
   function isTouchableDevice() {
@@ -20,7 +20,7 @@ const SliderContainer: React.FC<props> = ({
       <div
         className={`${css`
           display: flex;
-        `} ${sliderContainerStyles}`}
+        `} ${outterContainerStyles}`}
         onMouseOver={() => !isTouchableDevice() && setVisibleButtons(true)}
         onMouseOut={() => !isTouchableDevice() && setVisibleButtons(false)}
       >
