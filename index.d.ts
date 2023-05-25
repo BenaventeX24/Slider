@@ -28,10 +28,10 @@ type Props = {
  * @param {number} threshold How much of a single item must be visible to be count as visible (0=A single visible pixel will be acceptable, 1=Every pixel must be visible to be accepted)
  * @param {number} time Slide animation time 
  * @param {number} width In pixels, the width of the slider (only inner container)
- * @param {CSSProperties} outterContainerStyles Styles for the whole slider container
- * @param {CSSProperties} innerContainerStyles Styles for the inner (items) container
- * @param {CSSProperties} buttonLeftStyles Styles for the left button
- * @param {CSSProperties} buttonRightStyles Styles for the right button
+ * @param {CSSInterpolation} outterContainerStyles Styles for the whole slider container
+ * @param {CSSInterpolation} innerContainerStyles Styles for the inner (items) container
+ * @param {CSSInterpolation} buttonLeftStyles Styles for the left button
+ * @param {CSSInterpolation} buttonRightStyles Styles for the right button
  * @param {boolean} disableScrollbar Disable scrollbar, slider will only work with buttons (default false)
  * @param {boolean} showButtons false -> buttons will not show up (default true)
  * @param {boolean} disappearingButtons false -> buttons will only show when hovering over sldier (default true)
