@@ -13,8 +13,14 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "outDir": "./dist"
+    "outDir": "dist"
   },
-  "include": ["src/**/*", "src/svg.d.ts", "src/ChevronIcons"],
-  "exclude": ["index.js", "./lib", "./dist"]
+  "include": [
+    "src/**/*",
+    "src/svg.d.ts",
+    "src/ChevronIcons",
+    "lib",
+    "index.d.ts"
+  ],
+  "exclude": ["index.js", "lib", "./dist"]
 }

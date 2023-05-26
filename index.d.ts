@@ -1,24 +1,25 @@
-/// <reference types="react" />
-import React, { ReactNode } from "react";
+declare module "@benavente/slider" {
+  import { CSSInterpolation } from "@emotion/css";
+  import React, { ReactNode } from "react";
 
-type Props = {
-  children: ReactNode;
-  spacing?: number;
-  buttonLeft?: ReactNode;
-  buttonRight?: ReactNode;
-  threshold?: number;
-  time?: number;
-  width?: number;
-  outterContainerStyles?: CSSInterpolation;
-  innerContainerStyles?: CSSInterpolation;
-  buttonLeftStyles?: CSSInterpolation;
-  buttonRightStyles?: CSSInterpolation;
-  disableScrollbar?: boolean;
-  showButtons?: boolean;
-  disappearingButtons?: boolean;
-};
+  type Props = {
+    children: ReactNode;
+    spacing?: number;
+    buttonLeft?: ReactNode;
+    buttonRight?: ReactNode;
+    threshold?: number;
+    time?: number;
+    width?: number;
+    outterContainerStyles?: CSSInterpolation;
+    innerContainerStyles?: CSSInterpolation;
+    buttonLeftStyles?: CSSInterpolation;
+    buttonRightStyles?: CSSInterpolation;
+    disableScrollbar?: boolean;
+    showButtons?: boolean;
+    disappearingButtons?: boolean;
+  };
 
-/**
+  /**
  * Slider fully responsive to the items inside
  *
  * @param {ReactNode} children The items to display inside
@@ -39,6 +40,7 @@ type Props = {
 * @return {JSX.Element} A scrollable slider with the given elements inside as an horizontal list
  */
 
-declare const Slider: React.FC<Props>;
+  declare const Slider: React.Component<Props>;
 
-export default Slider;
+  export default Slider;
+}
