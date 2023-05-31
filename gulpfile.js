@@ -5,8 +5,8 @@ const copy = require("gulp-copy");
 gulp.task("copy-folder", function () {
   return gulp
     .src("./src/ChevronIcons/*.svg")
-    .pipe(copy("dist", { prefix: 1 }))
-    .pipe(gulp.dest("dist"));
+    .pipe(copy("lib", { prefix: 1 }))
+    .pipe(gulp.dest("lib"));
 });
 
 // Create a default task that depends on the copy-folder task

@@ -1,6 +1,6 @@
 {
   "name": "@benavente/slider",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "main": "/index.js",
   "typings": "/index.d.ts",
   "description": "A fully responsive Slider for displaying multiple items in a single row with smooth animations",
@@ -29,7 +29,7 @@
   "scripts": {
     "test": "",
     "lint": "",
-    "build": "tsc && gulp && webpack"
+    "build": "tsc && gulp"
   },
   "devDependencies": {
     "@types/node": "^16.18.23",
@@ -49,11 +49,11 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
-    "@emotion/css": "^11.10.6",
     "@seznam/compose-react-refs": "^1.0.6",
     "scroll-into-view": "^1.16.2"
   },
   "peerDependencies": {
+    "@emotion/css": "^11.10.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
