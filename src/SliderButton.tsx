@@ -1,8 +1,7 @@
-import React, { ReactNode, useRef } from "react";
+import React, { useRef } from "react";
 import { CSSInterpolation, css } from "@emotion/css";
 import { slideDirections } from "./utils";
-import ChevronLeft from "./ChevronIcons/BsChevronLeft.svg";
-import ChevronRight from "./ChevronIcons/BsChevronRight.svg";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 type props = {
   disabled: boolean;
@@ -71,13 +70,11 @@ const LeftButton: React.FC<props> = ({
           ${styles}
         `}
       >
-        <img
-          src={
-            direction.includes(slideDirections.LEFT)
-              ? ChevronLeft
-              : ChevronRight
-          }
-        />
+        {direction.includes(slideDirections.LEFT) ? (
+          <BsChevronLeft />
+        ) : (
+          <BsChevronRight />
+        )}
       </button>
     </>
   );
