@@ -34,11 +34,11 @@ const LeftButton: React.FC<props> = ({
         className={css`
           display: flex;
           align-items: center;
-          padding-right: ${direction.includes(slideDirections.LEFT) && "8px"};
+          padding-right: ${direction.includes(slideDirections.LEFT) && "10px"};
           margin-right: ${direction.includes(slideDirections.LEFT) &&
           innerWidth &&
           -Math.abs(innerWidth / 2) + "px"};
-          padding-left: ${direction.includes(slideDirections.RIGHT) && "8px"};
+          padding-left: ${direction.includes(slideDirections.RIGHT) && "10px"};
           margin-left: ${direction.includes(slideDirections.RIGHT) &&
           innerWidth &&
           -Math.abs(innerWidth / 2) + "px"};
@@ -59,9 +59,6 @@ const LeftButton: React.FC<props> = ({
 
           ${disappearingButtons &&
           `
-          visibility: ${
-            !locked.includes(direction) && visible ? "visible" : "hidden"
-          };
           opacity: ${!locked.includes(direction) && visible ? "1" : "0"};
           pointer-events: ${
             !locked.includes(direction) && visible ? "auto" : "none"
