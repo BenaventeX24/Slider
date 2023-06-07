@@ -9,6 +9,7 @@ import UserCustomButton from "./UserCustomButton";
 import { CSSInterpolation } from "@emotion/css";
 
 type props = {
+  id?: string;
   children: ReactNode;
   threshold?: number | number[];
   spacing?: string;
@@ -31,6 +32,7 @@ type scrollTo = {
 };
 
 const Slider: React.FC<props> = ({
+  id,
   children,
   spacing,
   buttonLeft,
@@ -168,6 +170,7 @@ const Slider: React.FC<props> = ({
   return (
     <>
       <SliderContainer
+        id={id}
         setVisibleButtons={setVisibleButtons}
         outterContainerStyles={outterContainerStyles}
       >
