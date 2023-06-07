@@ -153,8 +153,6 @@ const Slider: React.FC<props> = ({
     });
   };
 
-  console.log(itemsRef);
-
   return (
     <>
       <SliderContainer
