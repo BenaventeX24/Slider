@@ -81,13 +81,13 @@ const Slider: React.FC<props> = ({
 
   useEffect(() => {
     setDisableButtons(true);
-    const align = scrollTo.direction === slideDirections.RIGHT ? 0.001 : 1;
+    //const align = scrollTo.direction === slideDirections.RIGHT ? 0.001 : 1;
 
     scrollIntoView(
       itemsRef.current[scrollTo.to],
       {
         time: time ? time : 350,
-        align: { left: align, lockY: true },
+        align: { left: 0.001, lockY: true },
         cancellable: false,
       },
       function (_completed) {
@@ -133,14 +133,16 @@ const Slider: React.FC<props> = ({
 
     let firstVisibleItem = 0;
     let scrollToLeft = 0;
+    let visibleItems = 0;
 
     itemsRef.current.forEach((item, index) => {
+      if (item.isVisible) visibleItems++;
       if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false) {
         firstVisibleItem = index;
       }
     });
 
-    scrollToLeft = firstVisibleItem - 1;
+    scrollToLeft = firstVisibleItem - visibleItems;
 
     if (scrollToLeft <= 0) {
       setLockSlide(slideDirections.LEFT);
