@@ -3,12 +3,12 @@ import React, { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-  spacing?: number;
+  spacing?: string;
   buttonLeft?: ReactNode;
   buttonRight?: ReactNode;
   threshold?: number;
   time?: number;
-  width?: number;
+  width?: string;
   outterContainerStyles?: CSSInterpolation;
   innerContainerStyles?: CSSInterpolation;
   buttonLeftStyles?: CSSInterpolation;
