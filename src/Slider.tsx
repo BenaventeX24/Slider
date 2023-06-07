@@ -18,7 +18,7 @@ type props = {
   buttonLeftStyles?: CSSInterpolation;
   buttonRightStyles?: CSSInterpolation;
   disableScrollbar?: boolean;
-  width?: number;
+  width?: string;
   showButtons?: boolean;
   outterContainerStyles?: CSSInterpolation;
   innerContainerStyles?: CSSInterpolation;

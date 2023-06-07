@@ -3,7 +3,7 @@ import { CSSInterpolation, css } from "@emotion/css";
 
 type props = {
   children: React.ReactNode;
-  width?: number;
+  width?: string;
   disableScrollbar?: boolean;
   innerContainerStyles?: CSSInterpolation;
 };
@@ -40,7 +40,7 @@ const ItemsContainer: React.FC<props> = ({
           }
 
           ${width
-            ? `${width}px`
+            ? { width }
             : `
               width: 1200px;
 
