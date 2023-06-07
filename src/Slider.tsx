@@ -125,6 +125,11 @@ const Slider: React.FC<props> = ({
     if (scrollToRight + visibleItems >= itemsRef.current.length)
       setLockSlide(slideDirections.RIGHT);
 
+    if (visibleItems === 0)
+      console.error(
+        "No visible items found. Try setting a smaller threshold, increasing slider's width or reducing item's width"
+      );
+
     setScrollTo({ to: scrollToRight, direction: slideDirections.RIGHT });
   };
 
@@ -148,6 +153,11 @@ const Slider: React.FC<props> = ({
       setLockSlide(slideDirections.LEFT);
       scrollToLeft = 0;
     }
+
+    if (visibleItems === 0)
+      console.error(
+        "No visible items found. Try setting a smaller threshold, increasing slider's width or reducing item's width"
+      );
 
     setScrollTo({
       to: scrollToLeft,
