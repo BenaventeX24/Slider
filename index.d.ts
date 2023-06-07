@@ -22,12 +22,12 @@ type Props = {
  * Slider fully responsive to the items inside
  *
  * @param {ReactNode} children The items to display inside
- * @param {number} spacing Adds a margin between each item in the slider
+ * @param {string} spacing Adds a margin between each item in the slider
  * @param {ReactNode} buttonLeft A custom button element to display instead of the default buttons
  * @param {ReactNode} buttonRight A custom button element to display instead of the default buttons
  * @param {number} threshold How much of a single item must be visible to be count as visible (0=A single visible pixel will be acceptable, 1=Every pixel must be visible to be accepted)
  * @param {number} time Slide animation time 
- * @param {number} width width of the inner container of the slider
+ * @param {string} width width of the inner container of the slider
  * @param {CSSInterpolation} outterContainerStyles Styles for the whole slider container
  * @param {CSSInterpolation} innerContainerStyles Styles for the inner (items) container
  * @param {CSSInterpolation} buttonLeftStyles Styles for the left button
