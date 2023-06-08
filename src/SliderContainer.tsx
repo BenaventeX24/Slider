@@ -2,12 +2,14 @@ import React from "react";
 import { CSSInterpolation, css } from "@emotion/css";
 
 type props = {
+  id?: string;
   children: React.ReactNode;
   setVisibleButtons: React.Dispatch<React.SetStateAction<boolean>>;
   outterContainerStyles?: CSSInterpolation;
 };
 
 const SliderContainer: React.FC<props> = ({
+  id,
   children,
   outterContainerStyles,
   setVisibleButtons,
@@ -18,6 +20,7 @@ const SliderContainer: React.FC<props> = ({
   return (
     <>
       <div
+        id={id}
         className={`${css`
           display: flex;
         `} ${outterContainerStyles}`}

@@ -2,6 +2,7 @@ import { CSSInterpolation } from "@emotion/css";
 import React, { ReactNode } from "react";
 
 type Props = {
+  id?: string;
   children: ReactNode;
   spacing?: string;
   buttonLeft?: ReactNode;
@@ -21,6 +22,7 @@ type Props = {
 /**
  * Slider fully responsive to the items inside
  *
+ * @param {string} id Adds an id to the parent div of the slider
  * @param {ReactNode} children The items to display inside
  * @param {string} spacing Adds a margin between each item in the slider
  * @param {ReactNode} buttonLeft A custom button element to display instead of the default buttons

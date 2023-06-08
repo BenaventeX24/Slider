@@ -23,15 +23,31 @@ yarn add @benavente/slider
 ```sh
 import Slider from "@benavente/slider"
 
-<Slider>
-	<div> Put your items here! </div>
-    <div> Each separate  </div>
-    <div> element '</>' </div>
-    <div> will be </div>
-    <div> interpreted as </div>
-    <div> a scrollable </div>
-    <div> item </div>
-</Slider>
+ <Slider
+      innerContainerStyles={css`
+        & div {
+          display: inline-block;
+          width: 210px;
+          height: 210px;
+          border: 1px solid black;
+          text-align: center;
+          line-height: 200px;
+        }
+      `}
+    >
+      <div> Put your items here! </div>
+      <div> Each </div>
+      <div> separate </div>
+      <div> element </div>
+      <div> </> </div>
+      <div> will </div>
+      <div> be </div>
+      <div> interpeted </div>
+      <div> as a </div>
+      <div> separate </div>
+      <div> scrollable </div>
+      <div> item </div>
+    </Slider>
 ```
 
 ### License: MIT
