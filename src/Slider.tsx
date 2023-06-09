@@ -11,7 +11,6 @@ import { CSSInterpolation } from "@emotion/css";
 type props = {
   id?: string;
   children: ReactNode;
-  threshold?: number | number[];
   spacing?: string;
   time?: number;
   buttonLeft?: JSX.Element;
@@ -37,7 +36,6 @@ const Slider: React.FC<props> = ({
   spacing,
   buttonLeft,
   buttonRight,
-  threshold,
   time,
   width,
   outterContainerStyles,
@@ -49,7 +47,6 @@ const Slider: React.FC<props> = ({
   disappearingButtons = true,
 }: props) => {
   const itemsRef = useRef<Array<SensorRef>>([]);
-  //const items = useMemo(() => Children.toArray(children), [children]);
 
   const [scrollTo, setScrollTo] = useState<scrollTo>({
     to: 0,
@@ -68,14 +65,14 @@ const Slider: React.FC<props> = ({
     setTimeout(() => {
       setLockSlide(slideDirections.NONE);
 
-      if (itemsRef.current[0]?.isVisible === true) {
+      if (itemsRef.current[0]?.inView === true) {
         setLockSlide(slideDirections.LEFT);
       }
-      if (itemsRef.current[itemsRef.current.length - 1]?.isVisible === true)
+      if (itemsRef.current[itemsRef.current.length - 1]?.inView === true)
         setLockSlide(slideDirections.RIGHT);
       if (
-        itemsRef.current[0]?.isVisible === true &&
-        itemsRef.current[itemsRef.current.length - 1]?.isVisible === true
+        itemsRef.current[0]?.inView === true &&
+        itemsRef.current[itemsRef.current.length - 1]?.inView === true
       )
         setLockSlide(slideDirections.BOTH);
     }, 0);
@@ -114,12 +111,12 @@ const Slider: React.FC<props> = ({
     let visibleItems = 0;
 
     itemsRef.current.forEach((item, index) => {
-      if (item.isVisible) visibleItems++;
+      if (item.inView) visibleItems++;
 
       if (
-        item.isVisible &&
-        (itemsRef.current[index + 1]?.isVisible === false ||
-          itemsRef.current[index + 1]?.isVisible === undefined)
+        item.inView &&
+        (itemsRef.current[index + 1]?.inView === false ||
+          itemsRef.current[index + 1]?.inView === undefined)
       )
         scrollToRight = index + 1;
     });
@@ -143,8 +140,8 @@ const Slider: React.FC<props> = ({
     let visibleItems = 0;
 
     itemsRef.current.forEach((item, index) => {
-      if (item.isVisible) visibleItems++;
-      if (item.isVisible && itemsRef.current[index - 1]?.isVisible === false) {
+      if (item.inView) visibleItems++;
+      if (item.inView && itemsRef.current[index - 1]?.inView === false) {
         firstVisibleItem = index;
       }
     });
@@ -158,7 +155,7 @@ const Slider: React.FC<props> = ({
 
     if (visibleItems === 0)
       console.error(
-        "No visible items found. Try setting a smaller threshold, increasing slider's width or reducing item's width"
+        "Sensor was unable to detect visible items. Try increasing slider's width or reducing item's width"
       );
 
     setScrollTo({
@@ -205,14 +202,13 @@ const Slider: React.FC<props> = ({
             <Sensor
               spacing={spacing}
               key={index}
-              threshold={threshold ? threshold : 1}
               ref={(element: SensorRef) => {
                 itemsRef.current[index] = element;
               }}
             >
-              {(isVisible: boolean) => {
+              {(inView: boolean) => {
                 if (itemsRef.current[index]) {
-                  itemsRef.current[index].isVisible = isVisible;
+                  itemsRef.current[index].inView = inView;
                   evaluteButtonsLock();
                 }
                 return item;
