@@ -1,51 +1,25 @@
-import React, { useRef, useState, useEffect, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import composeRefs from "@seznam/compose-react-refs";
 import { css } from "@emotion/css";
+import { InView, useInView } from "react-intersection-observer";
 
 type Props = {
-  children: (isVisible: boolean) => React.ReactNode;
-  threshold: number | number[];
+  children: (inView: boolean) => React.ReactNode;
   spacing?: string;
 };
 
 export interface SensorRef extends HTMLDivElement {
-  isVisible: boolean;
+  inView: boolean;
 }
 
 const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
-  { children, threshold, spacing },
+  { children, spacing },
   ref
 ) => {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const targetNode = targetRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: threshold,
-      }
-    );
-
-    if (targetNode) {
-      observer.observe(targetNode);
-    }
-
-    return () => {
-      if (targetNode) {
-        observer.unobserve(targetNode);
-      }
-    };
-  }, [threshold]);
-
+  const [inViewRef, inView] = useInView();
   return (
     <div
-      ref={composeRefs(targetRef, ref)}
+      ref={ref}
       className={css`
         display: inline-block;
         margin: 0 ${spacing};
@@ -58,7 +32,7 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
         }
       `}
     >
-      {children(isVisible)}
+      <div ref={inViewRef}>{children(inView)}</div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 {
   "name": "@benavente/slider",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "/index.js",
   "typings": "/index.d.ts",
   "description": "A fully responsive Slider for displaying multiple items in a single row with smooth animations",
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@seznam/compose-react-refs": "^1.0.6",
+    "react-intersection-observer": "^9.4.4",
     "scroll-into-view": "^1.16.2"
   },
   "peerDependencies": {
