@@ -30,6 +30,9 @@ type scrollTo = {
   direction: slideDirections;
 };
 
+const errorMessage =
+  "Sensor was unable to detect visible items. Try increasing slider's width or reducing item's width";
+
 const Slider: React.FC<props> = ({
   id,
   children,
@@ -124,10 +127,7 @@ const Slider: React.FC<props> = ({
     if (scrollToRight + visibleItems >= itemsRef.current.length)
       setLockSlide(slideDirections.RIGHT);
 
-    if (visibleItems === 0)
-      console.error(
-        "No visible items found. Try setting a smaller threshold, increasing slider's width or reducing item's width"
-      );
+    if (visibleItems === 0) console.error(errorMessage);
 
     setScrollTo({ to: scrollToRight, direction: slideDirections.RIGHT });
   };
@@ -153,10 +153,7 @@ const Slider: React.FC<props> = ({
       scrollToLeft = 0;
     }
 
-    if (visibleItems === 0)
-      console.error(
-        "Sensor was unable to detect visible items. Try increasing slider's width or reducing item's width"
-      );
+    if (visibleItems === 0) console.error(errorMessage);
 
     setScrollTo({
       to: scrollToLeft,
