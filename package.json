@@ -1,6 +1,6 @@
 {
   "name": "@benavente/slider",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "main": "/index.js",
   "typings": "/index.d.ts",
   "description": "A fully responsive Slider for displaying multiple items in a single row with smooth animations",
