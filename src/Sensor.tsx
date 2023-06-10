@@ -1,7 +1,6 @@
 import React, { forwardRef } from "react";
-import composeRefs from "@seznam/compose-react-refs";
 import { css } from "@emotion/css";
-import { InView, useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 
 type Props = {
   children: (inView: boolean) => React.ReactNode;
@@ -16,12 +15,19 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
   { children, spacing },
   ref
 ) => {
-  const [inViewRef, inView] = useInView();
+  const [upperRef, isUpperVisible] = useInView({ threshold: [0.98] });
+  const [lowerRef, isLowerVisible] = useInView({ threshold: [0.98] });
+  const [middleRef, isMiddleVisible] = useInView({ threshold: [0.98] });
+
+  /*let upperIntersections: boolean;
+  let lowerIntersections: boolean;
+  let middleIntersections: boolean;*/
   return (
     <div
       ref={ref}
       className={css`
         display: inline-block;
+        position: relative;
         margin: 0 ${spacing};
 
         &:first-child {
@@ -32,7 +38,36 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
         }
       `}
     >
-      <div ref={inViewRef}>{children(inView)}</div>
+      <div
+        ref={upperRef}
+        className={css`
+          height: 1px;
+          width: 100%;
+          position: absolute;
+          top: 0;
+        `}
+      ></div>
+      <div
+        ref={middleRef}
+        className={css`
+          height: 1px;
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        `}
+      ></div>
+      <div
+        ref={lowerRef}
+        className={css`
+          height: 1px;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+        `}
+      ></div>
+      {children(isUpperVisible || isMiddleVisible || isLowerVisible)}
     </div>
   );
 };
