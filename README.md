@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.ibb.co/kKyY0NL/Logo-1.jpg" />
+  <img src="[https://i.ibb.co/kKyY0NL/Logo-1.jpg](https://i.ibb.co/NrK3Yqt/Logo-4.png)" />
 </p>
 
 # Slider
@@ -49,5 +49,6 @@ import Slider from "@benavente/slider"
       <div> item </div>
     </Slider>
 ```
+![ezgif com-video-to-gif](https://github.com/BenaventeX24/Slider/assets/81106944/c9cf9eff-6ba4-4358-b2bb-2af2b4dab96b)
 
 ### License: MIT
