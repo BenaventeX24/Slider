@@ -5,13 +5,13 @@ type props = {
   id?: string;
   children: React.ReactNode;
   setVisibleButtons: React.Dispatch<React.SetStateAction<boolean>>;
-  outterContainerStyles?: CSSInterpolation;
+  outerContainerStyles?: CSSInterpolation;
 };
 
 const SliderContainer: React.FC<props> = ({
   id,
   children,
-  outterContainerStyles,
+  outerContainerStyles,
   setVisibleButtons,
 }: props) => {
   function isTouchableDevice() {
@@ -23,7 +23,7 @@ const SliderContainer: React.FC<props> = ({
         id={id}
         className={`${css`
           display: flex;
-        `} ${outterContainerStyles}`}
+        `} ${outerContainerStyles}`}
         onMouseOver={() => !isTouchableDevice() && setVisibleButtons(true)}
         onMouseOut={() => !isTouchableDevice() && setVisibleButtons(false)}
       >

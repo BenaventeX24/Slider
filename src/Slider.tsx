@@ -20,7 +20,7 @@ type props = {
   disableScrollbar?: boolean;
   width?: string;
   showButtons?: boolean;
-  outterContainerStyles?: CSSInterpolation;
+  outerContainerStyles?: CSSInterpolation;
   innerContainerStyles?: CSSInterpolation;
   disappearingButtons?: boolean;
 };
@@ -41,7 +41,7 @@ const Slider: React.FC<props> = ({
   buttonRight,
   time,
   width,
-  outterContainerStyles,
+  outerContainerStyles,
   innerContainerStyles,
   buttonLeftStyles,
   buttonRightStyles,
@@ -166,7 +166,7 @@ const Slider: React.FC<props> = ({
       <SliderContainer
         id={id}
         setVisibleButtons={setVisibleButtons}
-        outterContainerStyles={outterContainerStyles}
+        outerContainerStyles={outerContainerStyles}
       >
         {buttonLeft && showButtons ? (
           <UserCustomButton

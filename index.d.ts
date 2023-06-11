@@ -9,7 +9,7 @@ type Props = {
   buttonRight?: ReactNode;
   time?: number;
   width?: string;
-  outterContainerStyles?: CSSInterpolation;
+  outerContainerStyles?: CSSInterpolation;
   innerContainerStyles?: CSSInterpolation;
   buttonLeftStyles?: CSSInterpolation;
   buttonRightStyles?: CSSInterpolation;
@@ -28,7 +28,7 @@ type Props = {
  * @param {ReactNode} buttonRight A custom button element to display instead of the default buttons
  * @param {number} time Slide animation time 
  * @param {string} width width of the inner container of the slider
- * @param {CSSInterpolation} outterContainerStyles Styles for the whole slider container
+ * @param {CSSInterpolation} outerContainerStyles Styles for the whole slider container
  * @param {CSSInterpolation} innerContainerStyles Styles for the inner (items) container
  * @param {CSSInterpolation} buttonLeftStyles Styles for the left button
  * @param {CSSInterpolation} buttonRightStyles Styles for the right button
