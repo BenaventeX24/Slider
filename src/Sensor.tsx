@@ -15,13 +15,10 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
   { children, spacing },
   ref
 ) => {
-  const [upperRef, isUpperVisible] = useInView({ threshold: [0.98] });
-  const [lowerRef, isLowerVisible] = useInView({ threshold: [0.98] });
-  const [middleRef, isMiddleVisible] = useInView({ threshold: [0.98] });
+  const [upperRef, isUpperVisible] = useInView({ threshold: 1 });
+  const [lowerRef, isLowerVisible] = useInView({ threshold: 1 });
+  const [middleRef, isMiddleVisible] = useInView({ threshold: 1 });
 
-  /*let upperIntersections: boolean;
-  let lowerIntersections: boolean;
-  let middleIntersections: boolean;*/
   return (
     <div
       ref={ref}
