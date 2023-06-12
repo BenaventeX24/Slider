@@ -19,22 +19,22 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
   const sensorWidth = threshold && threshold * 100;
 
   const [upperLeftRef, isUpperLeftVisible] = useInView({
-    threshold: threshold,
+    threshold: threshold ? threshold : 0.5,
   });
   const [lowerLeftRef, isLowerLeftVisible] = useInView({
-    threshold: threshold,
+    threshold: threshold ? threshold : 0.5,
   });
   const [middleLeftRef, isMiddleLeftVisible] = useInView({
-    threshold: threshold,
+    threshold: threshold ? threshold : 0.5,
   });
   const [upperRightRef, isUpperRightVisible] = useInView({
-    threshold: threshold,
+    threshold: threshold ? threshold : 0.5,
   });
   const [lowerRightRef, isLowerRightVisible] = useInView({
-    threshold: threshold,
+    threshold: threshold ? threshold : 0.5,
   });
   const [middleRightRef, isMiddleRightVisible] = useInView({
-    threshold: threshold,
+    threshold: threshold ? threshold : 0.5,
   });
 
   return (

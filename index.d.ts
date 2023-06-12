@@ -23,7 +23,7 @@ type Props = {
  *
  * @param {string} id Adds an id to the parent div of the slider
  * @param {ReactNode} children The items to display inside
- * @param {number} threshold Between `0` and `1` indicating the percentage that should be visible before triggering.
+ * @param {number} threshold Default: 0.5; Between 0 and 1 indicating the percentage that should be visible to be counted as visible in the slider.
  * @param {string} spacing Adds a margin between each item in the slider
  * @param {ReactNode} buttonLeft A custom button element to display instead of the default buttons
  * @param {ReactNode} buttonRight A custom button element to display instead of the default buttons
