@@ -34,14 +34,14 @@ const LeftButton: React.FC<props> = ({
         className={css`
           display: flex;
           align-items: center;
+          right: ${direction.includes(slideDirections.RIGHT) &&
+          innerWidth &&
+          -Math.abs(innerWidth / 2) + "px"};
           padding-right: ${direction.includes(slideDirections.LEFT) && "10px"};
-          margin-right: ${direction.includes(slideDirections.LEFT) &&
+          left: ${direction.includes(slideDirections.LEFT) &&
           innerWidth &&
           -Math.abs(innerWidth / 2) + "px"};
           padding-left: ${direction.includes(slideDirections.RIGHT) && "10px"};
-          margin-left: ${direction.includes(slideDirections.RIGHT) &&
-          innerWidth &&
-          -Math.abs(innerWidth / 2) + "px"};
           align-self: center;
           font-size: 40px;
           width: 45px;

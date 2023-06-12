@@ -3,14 +3,12 @@ import { CSSInterpolation, css } from "@emotion/css";
 
 type props = {
   children: React.ReactNode;
-  width?: string;
   disableScrollbar?: boolean;
   innerContainerStyles?: CSSInterpolation;
 };
 
 const ItemsContainer: React.FC<props> = ({
   children,
-  width,
   disableScrollbar,
   innerContainerStyles,
 }: props) => {
@@ -38,33 +36,6 @@ const ItemsContainer: React.FC<props> = ({
           &::-webkit-scrollbar-thumb:active {
             background: rgba(124, 124, 124, 0.9);
           }
-
-          ${width
-            ? { width }
-            : `
-              width: 1200px;
-
-              @media (max-width: 1300px) {
-                width: 900px;
-              }
-  
-              @media (max-width: 960px) {
-                width: 600px;
-              }
-
-              @media (max-width: 668px) {
-                width: 400px;
-              }
-
-              @media (max-width: 420px) {
-                width: 300px;
-              }
-
-              @media (max-width: 320px) {
-                width: 260px;
-              }
-
-              `}
 
           ${disableScrollbar &&
           `
