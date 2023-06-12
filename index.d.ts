@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 type Props = {
   id?: string;
   children: ReactNode;
-  threshold: number;
+  threshold?: number;
   spacing?: string;
   buttonLeft?: ReactNode;
   buttonRight?: ReactNode;
