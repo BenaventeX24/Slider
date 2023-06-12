@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 type Props = {
   children: (inView: boolean) => React.ReactNode;
   spacing?: string;
+  threshold?: number;
 };
 
 export interface SensorRef extends HTMLDivElement {
@@ -12,12 +13,29 @@ export interface SensorRef extends HTMLDivElement {
 }
 
 const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
-  { children, spacing },
+  { children, spacing, threshold },
   ref
 ) => {
-  const [upperRef, isUpperVisible] = useInView({ threshold: 1 });
-  const [lowerRef, isLowerVisible] = useInView({ threshold: 1 });
-  const [middleRef, isMiddleVisible] = useInView({ threshold: 1 });
+  const sensorWidth = threshold && threshold * 100;
+
+  const [upperLeftRef, isUpperLeftVisible] = useInView({
+    threshold: threshold,
+  });
+  const [lowerLeftRef, isLowerLeftVisible] = useInView({
+    threshold: threshold,
+  });
+  const [middleLeftRef, isMiddleLeftVisible] = useInView({
+    threshold: threshold,
+  });
+  const [upperRightRef, isUpperRightVisible] = useInView({
+    threshold: threshold,
+  });
+  const [lowerRightRef, isLowerRightVisible] = useInView({
+    threshold: threshold,
+  });
+  const [middleRightRef, isMiddleRightVisible] = useInView({
+    threshold: threshold,
+  });
 
   return (
     <div
@@ -36,35 +54,77 @@ const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
       `}
     >
       <div
-        ref={upperRef}
+        ref={upperLeftRef}
         className={css`
           height: 1px;
-          width: 100%;
+          width: ${sensorWidth ? sensorWidth : 100}%;
           position: absolute;
           top: 0;
+          left: 0;
         `}
       ></div>
       <div
-        ref={middleRef}
+        ref={middleLeftRef}
         className={css`
           height: 1px;
-          width: 100%;
+          width: ${sensorWidth ? sensorWidth : 100}%;
           position: absolute;
           top: 50%;
           -ms-transform: translateY(-50%);
           transform: translateY(-50%);
+          left: 0;
         `}
       ></div>
       <div
-        ref={lowerRef}
+        ref={lowerLeftRef}
         className={css`
           height: 1px;
-          width: 100%;
+          width: ${sensorWidth ? sensorWidth : 100}%;
           position: absolute;
           bottom: 0;
+          left: 0;
         `}
       ></div>
-      {children(isUpperVisible || isMiddleVisible || isLowerVisible)}
+      <div
+        ref={upperRightRef}
+        className={css`
+          height: 1px;
+          width: ${sensorWidth ? sensorWidth : 100}%;
+          position: absolute;
+          top: 0;
+          right: 0;
+        `}
+      ></div>
+      <div
+        ref={middleRightRef}
+        className={css`
+          height: 1px;
+          width: ${sensorWidth ? sensorWidth : 100}%;
+          position: absolute;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          right: 0;
+        `}
+      ></div>
+      <div
+        ref={lowerRightRef}
+        className={css`
+          height: 1px;
+          width: ${sensorWidth ? sensorWidth : 100}%;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        `}
+      ></div>
+      {children(
+        isUpperLeftVisible ||
+          isLowerLeftVisible ||
+          isMiddleLeftVisible ||
+          isUpperRightVisible ||
+          isLowerRightVisible ||
+          isMiddleRightVisible
+      )}
     </div>
   );
 };

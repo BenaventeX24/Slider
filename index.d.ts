@@ -23,11 +23,12 @@ type Props = {
  *
  * @param {string} id Adds an id to the parent div of the slider
  * @param {ReactNode} children The items to display inside
+ * @param {number} threshold Between `0` and `1` indicating the percentage that should be visible before triggering.
  * @param {string} spacing Adds a margin between each item in the slider
  * @param {ReactNode} buttonLeft A custom button element to display instead of the default buttons
  * @param {ReactNode} buttonRight A custom button element to display instead of the default buttons
  * @param {number} time Slide animation time 
- * @param {string} width width of the inner container of the slider
+ * @param {string} width width of the Slider
  * @param {CSSInterpolation} outerContainerStyles Styles for the whole slider container
  * @param {CSSInterpolation} innerContainerStyles Styles for the inner (items) container
  * @param {CSSInterpolation} buttonLeftStyles Styles for the left button

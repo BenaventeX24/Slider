@@ -11,6 +11,7 @@ import { CSSInterpolation } from "@emotion/css";
 type props = {
   id?: string;
   children: ReactNode;
+  threshold?: number;
   spacing?: string;
   time?: number;
   buttonLeft?: JSX.Element;
@@ -31,11 +32,12 @@ type scrollTo = {
 };
 
 const errorMessage =
-  "Sensor was unable to detect visible items. Try increasing slider's width or reducing item's width";
+  "Sensor was unable to detect visible items. Try reducing threshold, increasing slider's width or reducing item's width";
 
 const Slider: React.FC<props> = ({
   id,
   children,
+  threshold,
   spacing,
   buttonLeft,
   buttonRight,
@@ -165,6 +167,7 @@ const Slider: React.FC<props> = ({
     <>
       <SliderContainer
         id={id}
+        width={width}
         setVisibleButtons={setVisibleButtons}
         outerContainerStyles={outerContainerStyles}
       >
@@ -191,13 +194,13 @@ const Slider: React.FC<props> = ({
           />
         )}
         <ItemsContainer
-          width={width}
           disableScrollbar={disableScrollbar}
           innerContainerStyles={innerContainerStyles}
         >
           {Children.toArray(children).map((item, index) => (
             <Sensor
               spacing={spacing}
+              threshold={threshold}
               key={index}
               ref={(element: SensorRef) => {
                 itemsRef.current[index] = element;
