@@ -13,28 +13,28 @@ export interface SensorRef extends HTMLDivElement {
 }
 
 const Sensor: React.ForwardRefRenderFunction<SensorRef, Props> = (
-  { children, spacing, threshold },
+  { children, spacing, threshold = 0.5 },
   ref
 ) => {
   const sensorWidth = threshold && threshold * 100;
 
   const [upperLeftRef, isUpperLeftVisible] = useInView({
-    threshold: threshold ? threshold : 0.5,
+    threshold: threshold,
   });
   const [lowerLeftRef, isLowerLeftVisible] = useInView({
-    threshold: threshold ? threshold : 0.5,
+    threshold: threshold,
   });
   const [middleLeftRef, isMiddleLeftVisible] = useInView({
-    threshold: threshold ? threshold : 0.5,
+    threshold: threshold,
   });
   const [upperRightRef, isUpperRightVisible] = useInView({
-    threshold: threshold ? threshold : 0.5,
+    threshold: threshold,
   });
   const [lowerRightRef, isLowerRightVisible] = useInView({
-    threshold: threshold ? threshold : 0.5,
+    threshold: threshold,
   });
   const [middleRightRef, isMiddleRightVisible] = useInView({
-    threshold: threshold ? threshold : 0.5,
+    threshold: threshold,
   });
 
   return (
